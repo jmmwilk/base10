@@ -1,0 +1,30 @@
+
+
+
+- szata graficzna inspirowana pomocami montessori (drewno + głębokie kolory)
+  - opcjonalnie elementy odpowiadające jednościom, dziesiątkom, setkom, tysiącom
+    (kratki, napisy, inputy) powinny mieć spójne kolory
+    http://www.montessorialbum.com/montessori/index.php?title=File:Div_Stamp_Game_2.JPG
+
+
+- flow nauki:
+  - 4 poziomy (stopnie trudności - wielkość liczb)
+  - 3 rodzaje ćwiczeń na poziom
+  - n ćwiczeń z danego rodzaju (to samo ćwiczenie z róznymi wylosowanymi liczbami)
+  * przez cały czas widzimy dwupoziomowy wskaźnik postępu (ile zrobiłem, ile zostało)
+
+
+- flow ćwiczenia:
+  - prezentacja problemu
+  - przycisk sprawdzenia
+  - przycisk ciągu dalszego (żeby był czas na analizę dobrego rozwiązania)
+  - w wypadku złej odpowiedzi - zachęta znalezienia błędu
+  - jaśniejsza prezentacja poprawnej odpowiedzi (zjeżdżają się liczby)
+
+
+- rodzaje ćwiczeń:
+  - wpisywanie cyfr liczby na podstawie wylosowanych kratek
+  - wpisywanie całej liczby na podstawie wylosowanych kratek
+  - układanie kratek na podstawie wylosowanych liczb
+
+

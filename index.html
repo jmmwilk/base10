@@ -11,6 +11,90 @@
     <script type="text/javascript" src="index.js"></script>
   </head>
   <body onload="start()">
-
+    <div id="aplication">
+      <div id="exercise-number">
+      </div>
+      <div id="exercise-container">
+        <div id="exercise">
+          <div id="columns-container">
+            <div id="thousands" class="column">
+              <div id="thousands-block" class="block">
+              </div>
+              <div id="thousands-literal" class="literal montessori-green">
+                1000<br/>thousands
+              </div>
+              <div id="thousand-building-block" class="building-block">
+                <img id="thousand-image" src = "images/1000.png" class="thousand-image"/>
+              </div>
+            </div> 
+            <div id="hundreds" class="column">
+              <div id="hundreds-block" class="block">
+              </div>
+              <div id="hundreds-literal" class="literal montessori-red">
+                100<br/>hundreds
+              </div>
+              <div id="hundred-building-block" class="building-block">
+                <img id="hundred-image" src="images/100.png" class="hundred-image"/>
+              </div>
+            </div>
+            <div id="tens" class="column">
+              <div id="tens-block" class="block">
+              </div>
+              <div id="tens-literal" class="literal montessori-blue">
+                10<br/>tens
+              </div>
+              <div id="ten-building-block" class="building-block">
+                <img id="ten-image" src="images/10.png" class="ten-image"/>
+              </div>
+            </div>
+            <div id="ones" class="column">
+              <div id="ones-block" class="block">
+              </div>
+              <div id="ones-literal" class="literal montessori-green">
+                1<br/>ones
+              </div>
+              <div id="one-building-block" class="building-block">
+                <img id="one-image" src="images/1.png" class="one-image"/>
+              </div>
+            </div>
+          </div>
+          <div id="input-container">
+            <div id="thousands-input" class="input">
+              <input id ="thousandsinput" type=text class="input-box montessori-green"/>
+            </div>
+            <div id="hundreds-input" class="input">
+              <input id = "hundredsinput" type=text class="input-box montessori-red"/>
+            </div>
+            <div id="tens-input" class="input">
+              <input id = "tensinput" type=text class="input-box montessori-blue"/>
+            </div>
+            <div id="ones-input" class="input">
+              <input id = "onesinput" type=text class="input-box montessori-green"/>
+            </div>
+          </div>
+          <input id= "whole-number-input"/>
+        </div>
+        <div id="side-bar">
+          <button id="check">
+            Check
+          </button>
+          <button id="next">
+            Next
+          </button>
+          <div id='make-number'>
+            <div id='make-number-thusands' class='make-number'>
+            </div>
+            <div id='make-number-hundreds' class='make-number'>
+            </div>
+            <div id='make-number-tens' class='make-number'>
+            </div>
+            <div id='make-number-ones' class='make-number'>
+            </div>
+          </div>
+          <div id="feedback">
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -10,3 +10,192 @@ body {
   justify-content: center;
   align-items: center;  
 }
+
+#aplication {
+  width: 1000px;
+  height:900px;
+  border: black solid 1px;
+  display: flex;
+  flex-direction: column;
+}
+
+#exercise-number {
+  height: 100px;
+  border: red solid 1px;
+}
+
+#exercise-container {
+  border: green solid 1px;
+  flex: 1;
+  display: flex;
+}
+
+#columns-container {
+  display: flex;
+  border: green solid 1px;
+  flex: 1;
+}
+
+#input-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#exercise {
+  border: red solid 1px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+#side-bar {
+  border: blue solid 1px;
+  width: 200px;
+}
+
+#thousands {
+  flex: 1;
+  border: green solid 1px;
+}
+
+#hundreds {
+  width: 220px;
+  border: green solid 1px;
+}
+
+#tens {
+  width: 150px;
+  border: green solid 1px;
+}
+
+#ones {
+  width: 100px;
+  border: green solid 1px;
+}
+
+.block {
+  flex: 1;
+  border: blue solid 1px;
+  position: relative;
+}
+
+.literal {
+  height: 100px;
+  border: blue solid 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  text-align: center;
+}
+
+.input {
+  height: 100px;
+  border: blue solid 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box {
+  width: 60px;
+  height: 90px;
+  font-size: 80px;
+}
+
+.building-block {
+  height: 120px;
+  border: blue solid 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#thousands-input {
+  width: 350px;
+}
+
+#hundreds-input {
+  width: 220px;
+}
+
+#tens-input {
+  width: 150px;
+}
+
+#ones-input {
+  width: 100px;
+}
+
+#check {
+  height: 90px;
+  font-size: 40px;
+}
+
+#next {
+  height: 90px;
+  font-size: 40px;
+}
+
+#make-number {
+  border: blue solid 1px;
+  display: flex;
+  flex-direction: row;
+}
+
+.make-number {
+  height: 90px;
+  font-size: 80px;
+  border: blue solid 1px;
+}
+
+.thousand-image {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+}
+
+.hundred-image {
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  border: solid 3px white;
+}
+
+.ten-image {
+  height: 70px;
+  width: 13px;
+  position: absolute;
+  border: solid 3px white;
+}
+
+.one-image {
+  height: 13px;
+  width: 13px;
+  position: absolute;
+  border: solid 3px white;
+}
+
+.montessori-green {
+  color: #008000;
+}
+
+.montessori-red {
+  color: red;
+}
+
+.montessori-blue {
+  color: blue;
+}
+
+#whole-number-input {
+  width: 300px;
+  height: 90px;
+  font-size: 80px;
+  align-self: flex-end;
+}
