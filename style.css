@@ -34,6 +34,7 @@ body {
   display: flex;
   border: green solid 1px;
   flex: 1;
+  justify-content: flex-end;
 }
 
 #input-container {
