@@ -11,7 +11,7 @@
   - 4 poziomy (stopnie trudności - wielkość liczb)
   - 3 rodzaje ćwiczeń na poziom
   - n ćwiczeń z danego rodzaju (to samo ćwiczenie z róznymi wylosowanymi liczbami)
-  * przez cały czas widzimy dwupoziomowy wskaźnik postępu (ile zrobiłem, ile zostało)
+  * przez cały czas widzimy dwupoziomowy (poziom, typ cwiczenia) wskaźnik postępu (ile zrobiłem, ile zostało)
 
 
 - flow ćwiczenia:
@@ -19,7 +19,8 @@
   - przycisk sprawdzenia
   - przycisk ciągu dalszego (żeby był czas na analizę dobrego rozwiązania)
   - w wypadku złej odpowiedzi - zachęta znalezienia błędu
-  - jaśniejsza prezentacja poprawnej odpowiedzi (zjeżdżają się liczby)
+  * ewentualnie hint, jak poradzić sobie z zadaniem
+  * jaśniejsza prezentacja poprawnej odpowiedzi (zjeżdżają się liczby)
 
 
 - rodzaje ćwiczeń:
