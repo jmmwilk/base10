@@ -16,6 +16,8 @@ function start () {
 }
 
 function newExercise () {
+  changeLevel();
+  console.log ('levelNumber' + levelNumber);
   let numberOfThousands = document.getElementById('thousands-block').innerText = Math.floor ((Math.random() * 9) + 1);
   let numberOfHundreds = document.getElementById('hundreds-block').innerText = Math.floor (Math.random() * 10);
   let numberOfTens = document.getElementById('tens-block').innerText = Math.floor (Math.random() * 10);
@@ -29,6 +31,16 @@ function newExercise () {
     addOnesImages (numberOfOnes);
     document.getElementById('make-number').style.display = 'none';
     document.getElementById('whole-number-input').style.display = 'none';
+    document.getElementById('thousandsinput').value = '';
+    document.getElementById('hundredsinput').value = '';
+    document.getElementById('tensinput').value = '';
+    document.getElementById('onesinput').value = '';
+    document.getElementById('check').style.display = '';
+    document.getElementById('feedback').style.display = 'none';
+    document.getElementById('thousands-input').style.width = '350px';
+    document.getElementById('hundreds-input').style.width = '220px';
+    document.getElementById('tens-input').style.width = '150px';
+    document.getElementById('ones-input').style.width = '100px';
     document.getElementById('check').onclick = function () {
       check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
      };
@@ -40,16 +52,20 @@ function newExercise () {
     addTensImages (numberOfTens);
     addOnesImages (numberOfOnes);
     document.getElementById('make-number').style.display = 'none';
+    document.getElementById('check').style.display = '';
+    document.getElementById('input-container').style.display = 'none';
+    document.getElementById('whole-number-input').style.display = '';
+    document.getElementById('whole-number-input').value = '';
+    document.getElementById('feedback').style.display = 'none';
     document.getElementById('check').onclick = function () {
       check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
     }
   }
 
   if (levelNumber == 3) {
-    document.getElementById('whole-number-input').style.display = 'none';
     displayBuildingBlocks ();
     document.getElementById('make-number').style.display = '';
-    document.getElementById('make-number-thusands').innerText = numberOfThousands;
+    document.getElementById('make-number-thousands').innerText = numberOfThousands;
     document.getElementById('make-number-hundreds').innerText = numberOfHundreds;
     document.getElementById('make-number-tens').innerText = numberOfTens;
     document.getElementById('make-number-ones').innerText = numberOfOnes;
@@ -57,9 +73,17 @@ function newExercise () {
     document.getElementById('hundred-image').onclick = buildHundredBlock;
     document.getElementById('ten-image').onclick = buildTenBlock;
     document.getElementById('one-image').onclick = buildOneBlock;
+    document.getElementById('check').style.display = '';
+    document.getElementById('input-container').style.display = 'none';
+    document.getElementById('whole-number-input').style.display = 'none';
+    document.getElementById('feedback').style.display = 'none';
+    document.getElementById('check').onclick = function () {
+      check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
+    }
   }
 
   changeLevel ();
+  console.log ('levelNumber' + levelNumber);
 }
 
 function buildThousandBlock () {
@@ -253,9 +277,8 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
       document.getElementById('next').style.display = '';
       document.getElementById('feedback').style.display = '';
       document.getElementById('feedback').innerText = 'Correct!';
-      document.getElementById('next').onclick = next;
+      document.getElementById('next').onclick = newExercise;
       goodAnswersCount = goodAnswersCount + 1;
-      console.log (goodAnswersCount);
       runAnimations ();
     } else {
       document.getElementById('feedback').style.display = '';
@@ -266,68 +289,42 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
 
   if (levelNumber == 2) {
     let typedWholeNumber = document.getElementById('whole-number-input').value;
-    console.log (typedWholeNumber);
     let givenNumber = numberOfThousands*1000 + numberOfHundreds*100 + numberOfTens*10 + numberOfOnes
     if (typedWholeNumber == givenNumber) {
       document.getElementById('check').style.display = 'none';
       document.getElementById('next').style.display = '';
       document.getElementById('feedback').style.display = '';
       document.getElementById('feedback').innerText = 'Correct!';
-      document.getElementById('next').onclick = next;
+      document.getElementById('next').onclick = newExercise;
       goodAnswersCount = goodAnswersCount + 1;
-      console.log (goodAnswersCount);
     } else {
       document.getElementById('feedback').style.display = '';
       document.getElementById('feedback').innerText = 'Find your mistake!';
       goodAnswersCount = 0;
     }
+    console.log ('goodAnswersCount' + goodAnswersCount);
   }
 
   if (levelNumber == 3) {
-    console.log (thousandsBlocksCount);
-    console.log(numberOfThousands);
-    if (thousandsBlocksCount == numberOfThousands) {
+    if (thousandsBlocksCount == numberOfThousands
+      && hundredsBlocksCount == numberOfHundreds
+      && tensBlocksCount == numberOfTens
+      && onesBlocksCount == numberOfOnes) {
       document.getElementById('check').style.display = 'none';
       document.getElementById('next').style.display = '';
       document.getElementById('feedback').style.display = '';
       document.getElementById('feedback').innerText = 'Correct!';
-      document.getElementById('next').onclick = next;
+      thousandsBlocksCount = 0;
+      hundredsBlocksCount = 0;
+      tensBlocksCount = 0;
+      onesBlocksCount = 0;
+      document.getElementById('next').onclick = newExercise;
       goodAnswersCount = goodAnswersCount + 1;
+    } else {
+      document.getElementById('feedback').style.display = '';
+      document.getElementById('feedback').innerText = 'Find your mistake!';
+      goodAnswersCount = 0;
     }
-  }
-}
-
-function next () {
-  if (levelNumber == 1) {
-    newExercise();
-    document.getElementById('thousandsinput').value = '';
-    document.getElementById('hundredsinput').value = '';
-    document.getElementById('tensinput').value = '';
-    document.getElementById('onesinput').value = '';
-    document.getElementById('check').style.display = '';
-    document.getElementById('feedback').style.display = 'none';
-    document.getElementById('thousands-input').style.width = '350px';
-    document.getElementById('hundreds-input').style.width = '220px';
-    document.getElementById('tens-input').style.width = '150px';
-    document.getElementById('ones-input').style.width = '100px';
-  }
-
-  if (levelNumber == 2) {
-    newExercise();
-    document.getElementById('check').style.display = '';
-    document.getElementById('input-container').style.display = 'none';
-    document.getElementById('whole-number-input').style.display = '';
-    document.getElementById('whole-number-input').value = '';
-    document.getElementById('feedback').style.display = 'none';
-  }
-
-  if (levelNumber == 3) {
-    newExercise();
-    document.getElementById('check').style.display = '';
-    document.getElementById('input-container').style.display = 'none';
-    document.getElementById('whole-number-input').style.display = 'none';
-    document.getElementById('feedback').style.display = 'none';
-    blocksCount = 0;
   }
 }
 
@@ -363,7 +360,6 @@ function runAnimations() {
 }
 
 function animate (animationObjectId, animationAtributes, initialValue, finalValue, animationTime) {
-  console.log(arguments);
 
   let currentValue = initialValue;
   let valueChange = (finalValue - initialValue) * 20 / animationTime
@@ -394,7 +390,17 @@ function changeLevel() {
     goodAnswersCount = 0;
   }
   if (levelNumber == 2 && goodAnswersCount == 1) {
+    displayBuildingBlocks ();
+    document.getElementById('make-number').style.display = '';
+    document.getElementById('input-container').style.display = 'none';
+    document.getElementById('whole-number-input').style.display = 'none';
+    document.getElementById('thousand-image').onclick = buildThousandBlock;
+    document.getElementById('hundred-image').onclick = buildHundredBlock;
+    document.getElementById('ten-image').onclick = buildTenBlock;
+    document.getElementById('one-image').onclick = buildOneBlock;
     levelNumber = levelNumber + 1;
     goodAnswersCount = 0;
   }
+  console.log ('goodAnswersCount' + goodAnswersCount );
+  console.log ('levelNumber' + levelNumber);
 }
