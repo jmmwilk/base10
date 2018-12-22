@@ -22,6 +22,7 @@ body {
 #exercise-number {
   height: 100px;
   border: red solid 1px;
+  font-size: 40px;
 }
 
 #exercise-container {
@@ -199,4 +200,8 @@ body {
   height: 90px;
   font-size: 80px;
   align-self: flex-end;
+}
+
+#feedback {
+  font-size: 50px;
 }
