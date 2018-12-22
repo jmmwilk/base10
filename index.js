@@ -21,10 +21,14 @@ function newExercise () {
   changeLevel();
   console.log ('levelNumber' + levelNumber);
   console.log ('difficulty' + difficulty);
-  let numberOfThousands = document.getElementById('thousands-block').innerText = Math.floor ((Math.random() * 9) + 1);
-  let numberOfHundreds = document.getElementById('hundreds-block').innerText = Math.floor (Math.random() * 10);
-  let numberOfTens = document.getElementById('tens-block').innerText = Math.floor (Math.random() * 10);
-  let numberOfOnes = document.getElementById('ones-block').innerText = Math.floor (Math.random() * 10);
+  let numberOfThousands = Math.floor ((Math.random() * 9) + 1);
+  let numberOfHundreds = Math.floor (Math.random() * 9 + 1);
+  let numberOfTens  = Math.floor (Math.random() * 9 + 1);
+  let numberOfOnes = Math.floor (Math.random() * 9 + 1);
+  document.getElementById('ones-block').innerText = '';
+  document.getElementById('tens-block').innerText = '';
+  document.getElementById('hundreds-block').innerText = '';
+  document.getElementById('thousands-block').innerText = '';
   document.getElementById('next').style.display = 'none';
   enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
   
@@ -46,6 +50,8 @@ function newExercise () {
       document.getElementById('hundreds-input').style.width = '220px';
       document.getElementById('tens-input').style.width = '150px';
       document.getElementById('ones-input').style.width = '100px';
+      document.getElementById('exercise-number').innerText = 'Wpisz ile jest dziesiątek i jedności.'
+
     }
     if (difficulty == 3) {
       addHundredsImages (numberOfHundreds);
@@ -59,6 +65,7 @@ function newExercise () {
       document.getElementById('hundreds-input').style.width = '220px';
       document.getElementById('tens-input').style.width = '150px';
       document.getElementById('ones-input').style.width = '100px';
+      document.getElementById('exercise-number').innerText = 'Wpisz ile jest setek, dziesiątek i jedności.'
     }
     if (difficulty == 4) {
       addThousandsImages (numberOfThousands);
@@ -73,6 +80,10 @@ function newExercise () {
       document.getElementById('hundreds-input').style.width = '220px';
       document.getElementById('tens-input').style.width = '150px';
       document.getElementById('ones-input').style.width = '100px';
+      document.getElementById('exercise-number').innerText = 'Wpisz ile jest tysięcy, setek, dziesiątek i jedności.'
+    }
+    if (difficulty== 5) {
+      enddisplay ();
     }
     document.getElementById('check').onclick = function () {
         check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
@@ -86,23 +97,27 @@ function newExercise () {
     document.getElementById('whole-number-input').style.display = '';
     document.getElementById('whole-number-input').value = '';
     document.getElementById('feedback').style.display = 'none';
-    if (difficulty == 2) {
+    if (difficulty == 1) {
       addOnesImages (numberOfOnes);
+      document.getElementById('exercise-number').innerText = 'Policz ile jest jedności i wpisz na dole.';
     }
     if (difficulty == 2) {
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
+      document.getElementById('exercise-number').innerText = 'Policz, ile jest dziesiątek i jedności. Wpisz, jaką tworzą liczbę.';
     }
     if (difficulty == 3) {
       addHundredsImages (numberOfHundreds);
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
+      document.getElementById('exercise-number').innerText = 'Policz, ile jest setek, dziesiątek i jedności. Wpisz, jaką tworzą liczbę.';
     }
     if (difficulty == 4) {
       addThousandsImages (numberOfThousands);
       addHundredsImages (numberOfHundreds);
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
+      document.getElementById('exercise-number').innerText = 'Policz, ile jest tysięcy, setek, dziesiątek i jedności. Wpisz, jaką tworzą liczbę.';
     }
     document.getElementById('check').onclick = function () {
       check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
@@ -118,6 +133,7 @@ function newExercise () {
       document.getElementById('make-number-thousands').style.display = 'none';
       document.getElementById('make-number-ones').innerText = numberOfOnes;
       document.getElementById('one-image').onclick = buildOneBlock;
+      document.getElementById('exercise-number').innerText = 'Ułóż ' + numberOfOnes + ' jedności.';
     }
     if (difficulty == 2) {
       document.getElementById('make-number-tens').style.display = '';
@@ -125,6 +141,7 @@ function newExercise () {
       document.getElementById('make-number-ones').innerText = numberOfOnes;
       document.getElementById('ten-image').onclick = buildTenBlock;
       document.getElementById('one-image').onclick = buildOneBlock;
+      document.getElementById('exercise-number').innerText =  'Ułóż liczbę ' + numberOfTens + numberOfOnes;
     }
     if (difficulty == 3) {
       document.getElementById('make-number-hundreds').style.display = '';
@@ -134,6 +151,7 @@ function newExercise () {
       document.getElementById('hundred-image').onclick = buildHundredBlock;
       document.getElementById('ten-image').onclick = buildTenBlock;
       document.getElementById('one-image').onclick = buildOneBlock;
+      document.getElementById('exercise-number').innerText =  'Ułóż liczbę ' + numberOfHundreds + numberOfTens + numberOfOnes;
     }
     if (difficulty == 4) {
       document.getElementById('make-number-thousands').style.display = '';
@@ -145,6 +163,7 @@ function newExercise () {
       document.getElementById('hundred-image').onclick = buildHundredBlock;
       document.getElementById('ten-image').onclick = buildTenBlock;
       document.getElementById('one-image').onclick = buildOneBlock;
+      document.getElementById('exercise-number').innerText =  'Ułóż liczbę ' + numberOfThousands + numberOfHundreds + numberOfTens + numberOfOnes;
     }
     document.getElementById('check').style.display = '';
     document.getElementById('input-container').style.display = 'none';
@@ -397,7 +416,7 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
     let typedWholeNumber = document.getElementById('whole-number-input').value;
     if (difficulty == 1) {
       let givenNumber = numberOfOnes
-      displayLevel2 (typedWholeNumber, givenNumber)
+      displayLevel2 (typedWholeNumber, givenNumber);
     }
     if (difficulty == 2) {
       let givenNumber = numberOfTens*10 + numberOfOnes
@@ -443,7 +462,7 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
         && hundredsBlocksCount == numberOfHundreds
         && tensBlocksCount == numberOfTens
         && onesBlocksCount == numberOfOnes) {
-        correctDisplayLevel3 ();
+        correctDisplayLevel3 ()
       } else {
         mistakeDisplayLevel3 ();
       }
@@ -460,6 +479,7 @@ function correctdisplayLevel1 () {
   document.getElementById('next').onclick = newExercise;
   goodAnswersCount = goodAnswersCount + 1;
   runAnimations ();
+  document.getElementById('exercise-number').innerText = '';
 }
 
 function mistakeDisplayLevel1 () {
@@ -476,6 +496,7 @@ function displayLevel2 (typedWholeNumber, givenNumber) {
     document.getElementById('feedback').innerText = 'Correct!';
     document.getElementById('next').onclick = newExercise;
     goodAnswersCount = goodAnswersCount + 1;
+    document.getElementById('exercise-number').innerText = '';
     } else {
     document.getElementById('feedback').style.display = '';
     document.getElementById('feedback').innerText = 'Find your mistake!';
@@ -494,6 +515,7 @@ function correctDisplayLevel3 () {
   onesBlocksCount = 0;
   document.getElementById('next').onclick = newExercise;
   goodAnswersCount = goodAnswersCount + 1;
+  document.getElementById('exercise-number').innerText = '';
 }
 
 function mistakeDisplayLevel3 () {
@@ -624,4 +646,7 @@ function enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
   }
 }
 
-
+function enddisplay () {
+  document.getElementById('exercise-container').style.display = 'none';
+  document.getElementById('exercise-number').innerText = 'koniec'
+}
