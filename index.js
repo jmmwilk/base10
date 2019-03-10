@@ -1,24 +1,27 @@
-const thousandBlockStep = 50;
-const hundredBlockStep = 30;
-const tenBlockStep = 20;
-const oneBlockStep = 20;
+const thousandBlockStep = 117;
+const hundredBlockStep = 36;
+const tenBlockStep = 36;
+const oneBlockStep = 36;
 let goodAnswersCount = 0;
 let answersCount = 0;
-let levelNumber = 2;
+let levelNumber = 1;
 let thousandsBlocksCount = 0;
 let hundredsBlocksCount = 0;
 let tensBlocksCount = 0;
 let onesBlocksCount = 0;
-let difficulty = 1;
+let difficulty = 4;
+let view = '';
 
 function start () {
+  addRightArrow ();
   newExercise ();
   hideBuildingBlocks ();
-  hideExercise ();
+//  hideExercise ();
 }
 
 function newExercise () {
   changeLevel();
+  view = 'New exercise';
   console.log ('levelNumber' + levelNumber);
   console.log ('difficulty' + difficulty);
   let numberOfThousands = Math.floor ((Math.random() * 9) + 1);
@@ -29,8 +32,9 @@ function newExercise () {
   document.getElementById('tens-block').innerText = '';
   document.getElementById('hundreds-block').innerText = '';
   document.getElementById('thousands-block').innerText = '';
-  document.getElementById('next').style.display = 'none';
   enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
+  document.getElementById('smile').style.display = 'none';
+  document.getElementById('right-arrow').style.display = 'none';
   
   
   if (levelNumber == 1) {
@@ -46,11 +50,17 @@ function newExercise () {
       document.getElementById('hundredsinput').value = '';
       document.getElementById('tensinput').value = '';
       document.getElementById('onesinput').value = '';
-      document.getElementById('thousands-input').style.width = '350px';
-      document.getElementById('hundreds-input').style.width = '220px';
-      document.getElementById('tens-input').style.width = '150px';
-      document.getElementById('ones-input').style.width = '100px';
       document.getElementById('exercise-number').innerText = 'Wpisz ile jest dziesiątek i jedności.'
+      let inputs = document.getElementsByClassName('input');
+      Array.from(inputs).forEach(function(input){
+        input.style.backgroundColor = 'green'; 
+        input.style.border = '';
+        console.log('zupa');
+      });
+      document.getElementById('input-container').style.border = "none";
+      let inputBoxes = document.getElementsByClassName('input-box');
+      Array.from(inputBoxes).forEach(function(inputBox){inputBox.style.backgroundColor = 'white'});
+      document.getElementById('smile').style.display = 'none';
 
     }
     if (difficulty == 3) {
@@ -61,10 +71,6 @@ function newExercise () {
       document.getElementById('hundredsinput').value = '';
       document.getElementById('tensinput').value = '';
       document.getElementById('onesinput').value = '';
-      document.getElementById('thousands-input').style.width = '350px';
-      document.getElementById('hundreds-input').style.width = '220px';
-      document.getElementById('tens-input').style.width = '150px';
-      document.getElementById('ones-input').style.width = '100px';
       document.getElementById('exercise-number').innerText = 'Wpisz ile jest setek, dziesiątek i jedności.'
     }
     if (difficulty == 4) {
@@ -76,10 +82,14 @@ function newExercise () {
       document.getElementById('hundredsinput').value = '';
       document.getElementById('tensinput').value = '';
       document.getElementById('onesinput').value = '';
-      document.getElementById('thousands-input').style.width = '350px';
-      document.getElementById('hundreds-input').style.width = '220px';
-      document.getElementById('tens-input').style.width = '150px';
-      document.getElementById('ones-input').style.width = '100px';
+      let inputs = document.getElementsByClassName('input');
+      Array.from(inputs).forEach(function(input){
+        input.style.backgroundColor = ''; 
+        input.style.border = '';
+        input.style.width = '';
+        });
+      let inputBoxes = document.getElementsByClassName('input-box');
+      Array.from(inputBoxes).forEach(function(inputBox){inputBox.style.backgroundColor = ''});
       document.getElementById('exercise-number').innerText = 'Wpisz ile jest tysięcy, setek, dziesiątek i jedności.'
     }
     if (difficulty== 5) {
@@ -197,7 +207,7 @@ function buildThousandBlock () {
   }
   let thousandsBlock = addImage ('thousands-block');
   thousandsBlock.blockNumber = thousandsBlocksCount;
-  thousandsBlock.src = 'images/1000.png';
+  thousandsBlock.src = 'assets/b1000.png';
   thousandsBlock.className = 'thousand-image';
   thousandsBlock.onclick = function (event) {
     if (event.target.blockNumber == thousandsBlocksCount - 1) {
@@ -222,7 +232,7 @@ function buildHundredBlock () {
   }
   let hundredsBlock = addImage ('hundreds-block');
   hundredsBlock.blockNumber = hundredsBlocksCount;
-  hundredsBlock.src = 'images/100.png';
+  hundredsBlock.src = 'assets/b100.png';
   hundredsBlock.className = 'hundred-image';
   hundredsBlock.onclick = function (event) {
     if (event.target.blockNumber == hundredsBlocksCount - 1) {
@@ -247,7 +257,7 @@ function buildTenBlock () {
   }
   let tensBlock = addImage ('tens-block');
   tensBlock.blockNumber = tensBlocksCount;
-  tensBlock.src = 'images/10.png';
+  tensBlock.src = 'assets/b10.png';
   tensBlock.className = 'ten-image';
   tensBlock.onclick = function (event) {
     if (event.target.blockNumber == tensBlocksCount - 1) {
@@ -255,12 +265,12 @@ function buildTenBlock () {
       tensBlocksCount = tensBlocksCount - 1;
     }
   };
-  if (tensBlocksCount<5) {
-      tensBlock.style.top = 10 + 'px';
+  if (tensBlocksCount<3) {
+      tensBlock.style.bottom = 10 + 'px';
       tensBlock.style.left = tensBlocksCount * tenBlockStep + 10 + 'px';
   }
-  if (tensBlocksCount>=5) {
-      tensBlock.style.top = 70 + 20 + 'px';
+  if (tensBlocksCount>=3) {
+      tensBlock.style.bottom = 70 + 20 + 'px';
       tensBlock.style.left = (tensBlocksCount - 5) * tenBlockStep + 10 +'px';
   }
   tensBlocksCount = tensBlocksCount + 1
@@ -272,7 +282,7 @@ function buildOneBlock () {
   }
   let onesBlock = addImage ('ones-block');
   onesBlock.blockNumber = onesBlocksCount;
-  onesBlock.src = 'images/1.png';
+  onesBlock.src = 'assets/b1.png';
   onesBlock.className = 'one-image';
   onesBlock.onclick = function (event) {
     if (event.target.blockNumber == onesBlocksCount - 1) {
@@ -300,41 +310,62 @@ function hideBuildingBlocks () {
   }
 }
 
-
-
-function addThousandsImages (numberOfThousands) {
-  for (i=0; i<numberOfThousands; i++) {
-    let thousandsBlock = addImage ('thousands-block');
-    thousandsBlock.src = 'images/1000.png'
-    thousandsBlock.className = 'thousand-image'
-    if (i<5) {
-      thousandsBlock.style.top = i * thousandBlockStep + 10 + 'px';
-      thousandsBlock.style.left = i * thousandBlockStep + 10 + 'px';
-    } else {
-      thousandsBlock.style.top = i * thousandBlockStep -80 + 'px';
-      thousandsBlock.style.left = (i - 5) * thousandBlockStep + 10 + 'px';
-    }
-  }
-}
-
 function addImage (parentId) {
     let image = document.createElement('img');
     document.getElementById(parentId).appendChild(image);
     return image
 }
 
+function addRightArrow () {
+  let rightArrow = addImage ('exercise');
+  rightArrow.src = 'assets/arrow.svg';
+  rightArrow.id = 'right-arrow';
+}
+
+function addLeftArrow () {
+  let leftArrow = addImage ('exercise');
+  leftArrow.src = 'assets/arrow.svg';
+  leftArrow.id = 'left-arrow';
+}
+
+function addThousandsImages (numberOfThousands) {
+  for (i=0; i<numberOfThousands; i++) {
+    let thousandsBlock = addImage ('thousands-block');
+    thousandsBlock.src = 'assets/b1000.png';
+    thousandsBlock.className = 'thousand-image';
+    if (i<3) {
+      thousandsBlock.style.bottom = i * thousandBlockStep + 14 + 'px';
+      thousandsBlock.style.right = 35 + 'px';
+      thousandsBlock.style.zIndex = 2;
+    } 
+    if (i>=3 && i<6) {
+      thousandsBlock.style.bottom = (i-3) * thousandBlockStep + 56 + 'px';
+      thousandsBlock.style.right = 147 + 'px';
+      thousandsBlock.style.zIndex = 1;
+    }
+    if (i>=6) {
+      thousandsBlock.style.bottom = (i-6) * thousandBlockStep + 98 + 'px';
+      thousandsBlock.style.right = 259 + 'px';
+      thousandsBlock.style.zIndex = 0;
+    }
+  }
+}
+
 
 function addHundredsImages (numberOfHundreds) {
   for (i=0; i<numberOfHundreds; i++) {
     let hundredsBlock = addImage ('hundreds-block');
-    hundredsBlock.src = 'images/100.png'
-    hundredsBlock.className = 'hundred-image'
-    if (i<5) {
-      hundredsBlock.style.top = i * hundredBlockStep + 10 + 'px';
-      hundredsBlock.style.left = i * hundredBlockStep + 10 + 'px';
-    } else {
-      hundredsBlock.style.top = i * hundredBlockStep +50 + 'px';
-      hundredsBlock.style.left = (i - 5) * hundredBlockStep + 10 + 'px';
+    hundredsBlock.src = 'assets/b100.png';
+    hundredsBlock.className = 'hundred-image';
+    hundredsBlock.style.left =  29 + 'px';
+    if (i<3) {
+      hundredsBlock.style.bottom = i * hundredBlockStep + 31 + 'px';
+    } 
+    if (i>=3 && i<6) {
+      hundredsBlock.style.bottom = i * hundredBlockStep + 66 + 'px';
+    }
+    if (i>=6) {
+      hundredsBlock.style.bottom = i * hundredBlockStep + 101 + 'px';
     }
   }
 }
@@ -342,14 +373,17 @@ function addHundredsImages (numberOfHundreds) {
 function addTensImages (numberOfTens) {
   for (i=0; i<numberOfTens; i++) {
     let tensBlock = addImage ('tens-block');
-    tensBlock.src = 'images/10.png'
-    tensBlock.className = 'ten-image'
-    if (i<5) {
-      tensBlock.style.top = 10 + 'px';
-      tensBlock.style.left = i * tenBlockStep + 10 + 'px';
-    } else {
-      tensBlock.style.top = 70 + 20 + 'px';
-      tensBlock.style.left = (i - 5) * tenBlockStep + 10 +'px';
+    tensBlock.src = 'assets/b10.png';
+    tensBlock.className = 'ten-image';
+    tensBlock.style.left = 65 + 'px';
+    if (i<3) {
+      tensBlock.style.bottom = i * tenBlockStep + 36 + 'px';
+    } 
+    if (i>= 3 && i<6) {
+      tensBlock.style.bottom = i * tenBlockStep + 66 + 'px';
+    } 
+    if (i>=6) {
+      tensBlock.style.bottom = i * tenBlockStep + 96 + 'px';
     }
   }
 }
@@ -358,10 +392,18 @@ function addTensImages (numberOfTens) {
 function addOnesImages (numberOfOnes) {
   for (i=0; i<numberOfOnes; i++) {
     let onesBlock = addImage ('ones-block');
-    onesBlock.src = 'images/1.png'
+    onesBlock.src = 'assets/b1.png'
     onesBlock.className = 'one-image'
-    onesBlock.style.top = i * oneBlockStep + 10 + 'px';
-    onesBlock.style.left = 10 + 'px';
+    onesBlock.style.left = 95 + 'px';
+    if (i<3) {
+      onesBlock.style.bottom = i * oneBlockStep + 60 + 'px';
+    }
+    if (i>=3 && i<6) {
+      onesBlock.style.bottom = i * oneBlockStep + 90 + 'px';
+    }
+    if (i>=6) {
+      onesBlock.style.bottom = i * oneBlockStep + 120 + 'px';
+    }
   }
 }
 
@@ -471,56 +513,79 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
   enter(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
 }
 
+
+
+function showCheckButton () {
+  let inputs = document.getElementsByClassName('input-box');
+  Array.from(inputs).forEach(function(input){input.onkeydown = function () {
+    document.getElementById('check').style.display = '';
+    document.getElementById('feedback').style.display = 'none';
+    }
+  })
+}
+
 function correctdisplayLevel1 () {
+  console.log('correctdisplayLevel1');
+  view = 'Correct display';
   document.getElementById('check').style.display = 'none';
-  document.getElementById('next').style.display = '';
   document.getElementById('feedback').style.display = '';
-  document.getElementById('feedback').innerText = 'Correct!';
-  document.getElementById('next').onclick = newExercise;
+  document.getElementById('feedback').innerText = 'Dobrze!';
+  document.getElementById('right-arrow').onclick = newExercise;
   goodAnswersCount = goodAnswersCount + 1;
+  let inputs = document.getElementsByClassName('input');
+  Array.from(inputs).forEach(function(input){
+    input.style.backgroundColor = '#eee5d7'; 
+    input.style.border = 'none';
+  });
+  let inputBoxes = document.getElementsByClassName('input-box');
+  Array.from(inputBoxes).forEach(function(inputBox){inputBox.style.backgroundColor = '#eee5d7'});
   runAnimations ();
   document.getElementById('exercise-number').innerText = '';
+  document.getElementById('smile').style.display = '';
+  document.getElementById('right-arrow').style.display = '';
 }
 
 function mistakeDisplayLevel1 () {
+  view = 'Mistake display';
   document.getElementById('feedback').style.display = '';
-  document.getElementById('feedback').innerText = 'Find your mistake!';
+  document.getElementById('feedback').innerText = 'Gdzie jest błąd?';
+  document.getElementById('check').style.display = 'none';
   goodAnswersCount = 0;
+  showCheckButton ();
+
 }
 
 function displayLevel2 (typedWholeNumber, givenNumber) {
   if (typedWholeNumber == givenNumber) {
     document.getElementById('check').style.display = 'none';
-    document.getElementById('next').style.display = '';
     document.getElementById('feedback').style.display = '';
-    document.getElementById('feedback').innerText = 'Correct!';
-    document.getElementById('next').onclick = newExercise;
+    document.getElementById('feedback').innerText = 'Dobrze!';
+    document.getElementById('right-arrow').onclick = newExercise;
     goodAnswersCount = goodAnswersCount + 1;
     document.getElementById('exercise-number').innerText = '';
     } else {
     document.getElementById('feedback').style.display = '';
-    document.getElementById('feedback').innerText = 'Find your mistake!';
+    document.getElementById('feedback').innerText = 'Gdzie jest błąd?';
     goodAnswersCount = 0;
   }
 }
 
 function correctDisplayLevel3 () {
   document.getElementById('check').style.display = 'none';
-  document.getElementById('next').style.display = '';
   document.getElementById('feedback').style.display = '';
-  document.getElementById('feedback').innerText = 'Correct!';
+  document.getElementById('feedback').innerText = 'Dobrze!';
   thousandsBlocksCount = 0;
   hundredsBlocksCount = 0;
   tensBlocksCount = 0;
   onesBlocksCount = 0;
-  document.getElementById('next').onclick = newExercise;
+  document.getElementById('right-arrow').onclick = newExercise;
   goodAnswersCount = goodAnswersCount + 1;
   document.getElementById('exercise-number').innerText = '';
 }
 
 function mistakeDisplayLevel3 () {
   document.getElementById('feedback').style.display = '';
-  document.getElementById('feedback').innerText = 'Find your mistake!';
+  document.getElementById('feedback').innerText = 'Gdzie jest błąd?';
   goodAnswersCount = 0;
 }
 
@@ -579,7 +644,7 @@ function animate (animationObjectId, animationAtributes, initialValue, finalValu
 }
 
 function changeLevel() {
-  if (levelNumber == 1 && goodAnswersCount == 1 ) {
+  if (levelNumber == 1 && goodAnswersCount == 100000 ) {
     document.getElementById('input-container').style.display = 'none';
     document.getElementById('whole-number-input').style.display = '';
     levelNumber = levelNumber + 1;
@@ -628,7 +693,7 @@ function changeLevel() {
 
 
 function enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
-  if (document.getElementById('next').style.display == 'none') {
+  if (view == 'New exercise' || view == 'Mistake display') {
     document.body.onkeydown = function (event) {
       if (event.keyCode == 13) {
         console.log('enter - check');
@@ -636,7 +701,6 @@ function enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
       }
     }
   } else {
-
     document.body.onkeydown = function (event) {
       if (event.keyCode == 13) {
         console.log('enter - new exercise');

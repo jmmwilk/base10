@@ -9,139 +9,172 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;  
+  background-color: #eee5d7;
+
 }
 
 #aplication {
-  width: 1000px;
-  height:900px;
-  border: black solid 1px;
+  width: 1317px;
+  height: 1060px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  background-color: #eee5d7;
 }
 
 #exercise-number {
   height: 100px;
-  border: red solid 1px;
   font-size: 40px;
+  background-color: #eee5d7;
 }
 
 #exercise-container {
-  border: green solid 1px;
-  flex: 1;
+  height: 896px;
+  width: 1150px;
   display: flex;
+  flex-direction: column;
+  background-color: #eee5d7;
 }
 
 #columns-container {
+  height: 532px;
   display: flex;
-  border: green solid 1px;
-  flex: 1;
   justify-content: flex-end;
 }
 
 #input-container {
   display: flex;
-  justify-content: flex-end;
+  position: relative;
+  justify-content: center;
 }
 
 #exercise {
-  border: red solid 1px;
+  height: 796px;
+  border: #584434 solid 7px;
   display: flex;
-  flex: 1;
   flex-direction: column;
+  position: relative;
 }
 
 #side-bar {
-  border: blue solid 1px;
-  width: 200px;
+  width: 100%;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee5d7;
+  display: flex;
+}
+
+#right-arrow {
+  position: absolute;
+  top: 400px;
+  right: -60px;
+}
+
+#left-arrow {
+  position: absolute;
+  left: -60px;
+  top: 400px;
+  transform:
+    rotate(180deg)
 }
 
 #thousands {
   flex: 1;
-  border: green solid 1px;
+  width: 425px;
 }
 
 #hundreds {
-  width: 220px;
-  border: green solid 1px;
+  width: 230px;
 }
 
 #tens {
-  width: 150px;
-  border: green solid 1px;
+  width: 230px;
 }
 
 #ones {
-  width: 100px;
-  border: green solid 1px;
+  width: 230px;
 }
 
 .block {
   flex: 1;
-  border: blue solid 1px;
   position: relative;
+  height: 516px;
 }
 
-.literal {
-  height: 100px;
-  border: blue solid 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-  text-align: center;
+#thousands-block {
+  background-image: url('assets/tlo1000.svg');
+}
+
+#hundreds-block {
+  background-image: url('assets/tlo100.svg');
+}
+
+#tens-block {
+  background-image: url('assets/tlo10.svg');
+}
+
+#ones-block {
+  background-image: url('assets/tlo1.svg');
+  width: 212px;
 }
 
 .input {
-  height: 100px;
-  border: blue solid 1px;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: #584434 solid 8px;
 }
 
 .column {
   display: flex;
   flex-direction: column;
+  border: #584434 solid 8px;
+  height: 532.458px;
 }
 
 .input-box {
-  width: 60px;
-  height: 90px;
+  width: 100px;
+  height: 160px;
   font-size: 80px;
+  border: none;
 }
 
 .building-block {
-  height: 120px;
-  border: blue solid 1px;
+  height: 150px;
+  border: #584434 solid 8px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #thousands-input {
-  width: 350px;
+  width: 447px;
+  background-color: #6bab46;
 }
 
 #hundreds-input {
-  width: 220px;
+  width: 230px;
+  background-color: #af3f3d;
 }
 
 #tens-input {
-  width: 150px;
+  width: 230px;
+  background-color: #3c789c;
 }
 
 #ones-input {
-  width: 100px;
+  width: 230px;
+  background-color: #6bab46;
 }
 
 #check {
-  height: 90px;
-  font-size: 40px;
-}
-
-#next {
-  height: 90px;
-  font-size: 40px;
+  height: 70px;
+  width: 290px;
+  font-size: 20px;
+  color: #eee5d7;
+  background-color: #584434;
 }
 
 #make-number {
@@ -157,42 +190,39 @@ body {
 }
 
 .thousand-image {
-  height: 100px;
-  width: 100px;
+  height: 163px;
+  width: 134px;
   position: absolute;
 }
 
 .hundred-image {
-  height: 70px;
-  width: 70px;
+  height: 91px;
+  width: 153px;
   position: absolute;
-  border: solid 3px white;
 }
 
 .ten-image {
-  height: 70px;
-  width: 13px;
+  height: 56px;
+  width: 85px;
   position: absolute;
-  border: solid 3px white;
 }
 
 .one-image {
-  height: 13px;
-  width: 13px;
+  height: 25px;
+  width: 20px;
   position: absolute;
-  border: solid 3px white;
 }
 
 .montessori-green {
-  color: #008000;
+  color: #6bab46;
 }
 
 .montessori-red {
-  color: red;
+  color: #af3f3d;
 }
 
 .montessori-blue {
-  color: blue;
+  color: #3c789c;
 }
 
 #whole-number-input {
@@ -203,5 +233,23 @@ body {
 }
 
 #feedback {
-  font-size: 50px;
+  font-size: 30px;
+  height: 67px;
+  width: 286px;
+  color: #584434;
+  background-color: #d0c5b6;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 67px;
+}
+
+#smile {
+  width: 70px;
+  height: 70px;
+  border: solid #584434 5px;
+  border-radius: 70px;
+  background-color: #f7d237;
+  bottom: -5px;
+  position: absolute;
+  padding: 10px;
 }
