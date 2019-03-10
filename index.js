@@ -704,7 +704,7 @@ function enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
     document.body.onkeydown = function (event) {
       if (event.keyCode == 13) {
         console.log('enter - new exercise');
-        newExercise ()
+        newExercise ();
       }
     }
   }
