@@ -38,7 +38,7 @@ function newExercise () {
   clearInterval(startArrow);
   document.getElementById('right-arrow').style.display = 'none';
   document.getElementById('x').onclick = function(){
-    document.getElementById('instruction').style.display = 'none';
+  document.getElementById('instruction').style.display = 'none';
   }
   
   
@@ -47,15 +47,30 @@ function newExercise () {
     document.getElementById('whole-number-input').style.display = 'none';
     document.getElementById('check').style.display = '';
     document.getElementById('feedback').style.display = 'none';
+    document.getElementById('thousandsinput').value = '';
+    document.getElementById('hundredsinput').value = '';
+    document.getElementById('tensinput').value = '';
+    document.getElementById('onesinput').value = '';
+    let inputBoxes = document.getElementsByClassName('input-box');
+    Array.from(inputBoxes).forEach(function(inputBox){
+      inputBox.style.opacity = '';
+      inputBox.style.backgroundColor = ''
+    });
+    let inputs = document.getElementsByClassName('input');
+    Array.from(inputs).forEach(function(input){
+      input.style.backgroundColor = ''; 
+      input.style.border = '';
+      input.style.width = '';
+    }); 
+    document.getElementById('thousandsinput').onkeydown = function(){
+      document.getElementById('hundredsinput').focus();
+    }
+
     if (difficulty == 2) {
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
       document.getElementById('thousands-input').style.display = 'none';
       document.getElementById('hundreds-input').style.display = 'none';
-      document.getElementById('hundredsinput').value = '';
-      document.getElementById('tensinput').value = '';
-      document.getElementById('onesinput').value = '';
-      document.getElementById('exercise-number').innerText = 'Wpisz ile jest dziesiątek i jedności.'
       let inputs = document.getElementsByClassName('input');
       Array.from(inputs).forEach(function(input){
         input.style.backgroundColor = 'green'; 
@@ -64,22 +79,15 @@ function newExercise () {
       document.getElementById('input-container').style.border = "none";
       let inputBoxes = document.getElementsByClassName('input-box');
       Array.from(inputBoxes).forEach(function(inputBox){
-        inputBox.style.backgroundColor = 'white';
+        inputBox.style.backgroundColor = '';
         inputBox.style.opacity = '';
       });
-
-//    document.getElementById('thousandsinput').focus();
-      document.getElementById('smile').style.display = 'none';
-
     }
     if (difficulty == 3) {
       addHundredsImages (numberOfHundreds);
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
       document.getElementById('thousands-input').style.display = 'none';
-      document.getElementById('hundredsinput').value = '';
-      document.getElementById('tensinput').value = '';
-      document.getElementById('onesinput').value = '';
       document.getElementById('exercise-number').innerText = 'Wpisz ile jest setek, dziesiątek i jedności.'
     }
     if (difficulty == 4) {
@@ -87,24 +95,14 @@ function newExercise () {
       addHundredsImages (numberOfHundreds);
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
-      document.getElementById('thousandsinput').value = '';
-      document.getElementById('hundredsinput').value = '';
-      document.getElementById('tensinput').value = '';
-      document.getElementById('onesinput').value = '';
-      let inputs = document.getElementsByClassName('input');
-      Array.from(inputs).forEach(function(input){
-        input.style.backgroundColor = ''; 
-        input.style.border = '';
-        input.style.width = '';
-        });
-      let inputBoxes = document.getElementsByClassName('input-box');
-      Array.from(inputBoxes).forEach(function(inputBox){inputBox.style.backgroundColor = ''});    }
+    }
     if (difficulty== 5) {
       enddisplay ();
     }
     document.getElementById('check').onclick = function () {
         check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
        };
+    document.getElementById('thousandsinput').focus();
   }
 
   if (levelNumber == 2) {
@@ -537,6 +535,7 @@ function correctdisplayLevel1 () {
   document.getElementById('check').style.display = 'none';
   document.getElementById('feedback').style.display = '';
   document.getElementById('feedback').innerText = 'Dobrze!';
+  document.getElementById('right-arrow').style.display = '';
   document.getElementById('right-arrow').onclick = newExercise;
   let startArrow = setInterval(animateRightArrow, 600);
   goodAnswersCount = goodAnswersCount + 1;
@@ -547,13 +546,11 @@ function correctdisplayLevel1 () {
   });
   let inputBoxes = document.getElementsByClassName('input-box');
   Array.from(inputBoxes).forEach(function(inputBox){
-    inputBox.style.backgroundColor = '#eee5d7';
+    inputBox.style.backgroundColor = 'rgba(0, 0, 0, 0)';
     inputBox.style.opacity = '1';
   });
   runAnimations ();
-  document.getElementById('exercise-number').innerText = '';
   document.getElementById('smile').style.display = '';
-  document.getElementById('right-arrow').style.display = '';
 }
 
 function mistakeDisplayLevel1 () {
