@@ -11,6 +11,7 @@ let tensBlocksCount = 0;
 let onesBlocksCount = 0;
 let difficulty = 4;
 let view = '';
+let startArrow;
 
 function start () {
   addRightArrow ();
@@ -34,7 +35,11 @@ function newExercise () {
   document.getElementById('thousands-block').innerText = '';
   enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
   document.getElementById('smile').style.display = 'none';
+  clearInterval(startArrow);
   document.getElementById('right-arrow').style.display = 'none';
+  document.getElementById('x').onclick = function(){
+    document.getElementById('instruction').style.display = 'none';
+  }
   
   
   if (levelNumber == 1) {
@@ -55,11 +60,15 @@ function newExercise () {
       Array.from(inputs).forEach(function(input){
         input.style.backgroundColor = 'green'; 
         input.style.border = '';
-        console.log('zupa');
       });
       document.getElementById('input-container').style.border = "none";
       let inputBoxes = document.getElementsByClassName('input-box');
-      Array.from(inputBoxes).forEach(function(inputBox){inputBox.style.backgroundColor = 'white'});
+      Array.from(inputBoxes).forEach(function(inputBox){
+        inputBox.style.backgroundColor = 'white';
+        inputBox.style.opacity = '';
+      });
+
+//    document.getElementById('thousandsinput').focus();
       document.getElementById('smile').style.display = 'none';
 
     }
@@ -89,9 +98,7 @@ function newExercise () {
         input.style.width = '';
         });
       let inputBoxes = document.getElementsByClassName('input-box');
-      Array.from(inputBoxes).forEach(function(inputBox){inputBox.style.backgroundColor = ''});
-      document.getElementById('exercise-number').innerText = 'Wpisz ile jest tysięcy, setek, dziesiątek i jedności.'
-    }
+      Array.from(inputBoxes).forEach(function(inputBox){inputBox.style.backgroundColor = ''});    }
     if (difficulty== 5) {
       enddisplay ();
     }
@@ -531,6 +538,7 @@ function correctdisplayLevel1 () {
   document.getElementById('feedback').style.display = '';
   document.getElementById('feedback').innerText = 'Dobrze!';
   document.getElementById('right-arrow').onclick = newExercise;
+  let startArrow = setInterval(animateRightArrow, 600);
   goodAnswersCount = goodAnswersCount + 1;
   let inputs = document.getElementsByClassName('input');
   Array.from(inputs).forEach(function(input){
@@ -538,7 +546,10 @@ function correctdisplayLevel1 () {
     input.style.border = 'none';
   });
   let inputBoxes = document.getElementsByClassName('input-box');
-  Array.from(inputBoxes).forEach(function(inputBox){inputBox.style.backgroundColor = '#eee5d7'});
+  Array.from(inputBoxes).forEach(function(inputBox){
+    inputBox.style.backgroundColor = '#eee5d7';
+    inputBox.style.opacity = '1';
+  });
   runAnimations ();
   document.getElementById('exercise-number').innerText = '';
   document.getElementById('smile').style.display = '';
@@ -641,6 +652,13 @@ function animate (animationObjectId, animationAtributes, initialValue, finalValu
       }
     }
   }
+}
+
+function animateRightArrow () {
+  let rightArrow = document.getElementById('right-arrow');
+  rightArrow.style.right = '-60px';
+  animate ('right-arrow', 'right', -55, -60, 300);
+  console.log ('nalesniki');
 }
 
 function changeLevel() {
