@@ -38,9 +38,9 @@ function newExercise () {
   clearInterval(startArrow);
   document.getElementById('right-arrow').style.display = 'none';
   document.getElementById('x').onclick = function(){
-  document.getElementById('instruction').style.display = 'none';
+    document.getElementById('instruction').style.display = 'none';
+    document.getElementById('thousandsinput').focus();
   }
-  
   
   if (levelNumber == 1) {
     document.getElementById('make-number').style.display = 'none';
@@ -62,8 +62,17 @@ function newExercise () {
       input.style.border = '';
       input.style.width = '';
     }); 
-    document.getElementById('thousandsinput').onkeydown = function(){
+    document.getElementById('thousandsinput').onkeyup = function() {
       document.getElementById('hundredsinput').focus();
+    }
+    document.getElementById('hundredsinput').onkeyup = function() {
+      document.getElementById('tensinput').focus();
+    }
+    document.getElementById('tensinput').onkeyup = function() {
+      document.getElementById('onesinput').focus();
+    }
+    document.getElementById('onesinput').onkeyup = function() {
+      document.getElementById('check').focus();
     }
 
     if (difficulty == 2) {
@@ -456,6 +465,23 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
       } else {
         mistakeDisplayLevel1 ()
       }
+      if (parseInt(typedNumberOnes, 10) !== numberOfOnes) {
+        document.getElementById('onesinput').style.opacity = '1';
+        document.getElementById('onesinput').focus();
+      }
+      if (parseInt(typedNumberTens, 10) !== numberOfTens) {
+        document.getElementById('tensinput').style.opacity = '1';
+        document.getElementById('tensinput').focus();
+      }
+      if (parseInt(typedNumberHundreds, 10) !== numberOfHundreds) {
+        document.getElementById('hundredsinput').style.opacity = '1';
+        document.getElementById('hundredsinput').focus();
+      }
+      if (parseInt(typedNumberThousands, 10) !== numberOfThousands) {
+        document.getElementById('thousandsinput').style.opacity = '1';
+        document.getElementById('thousandsinput').focus();
+        console.log('mama');
+      }
     }
   }
 
@@ -537,7 +563,7 @@ function correctdisplayLevel1 () {
   document.getElementById('feedback').innerText = 'Dobrze!';
   document.getElementById('right-arrow').style.display = '';
   document.getElementById('right-arrow').onclick = newExercise;
-  let startArrow = setInterval(animateRightArrow, 600);
+  startArrow = setInterval(animateRightArrow, 600);
   goodAnswersCount = goodAnswersCount + 1;
   let inputs = document.getElementsByClassName('input');
   Array.from(inputs).forEach(function(input){
@@ -556,11 +582,15 @@ function correctdisplayLevel1 () {
 function mistakeDisplayLevel1 () {
   view = 'Mistake display';
   document.getElementById('feedback').style.display = '';
-  document.getElementById('feedback').innerText = 'Gdzie jest błąd?';
+  document.getElementById('feedback').innerText = 'Spróbuj jeszcze raz';
   document.getElementById('check').style.display = 'none';
   goodAnswersCount = 0;
   showCheckButton ();
-
+  let inputBoxes = document.getElementsByClassName('input-box');
+  let typedNumberThousands = document.getElementById('thousandsinput').value;
+  let typedNumberHundreds = document.getElementById('hundredsinput').value;
+  let typedNumberTens = document.getElementById('tensinput').value;
+  let typedNumberOnes = document.getElementById('onesinput').value;
 }
 
 function displayLevel2 (typedWholeNumber, givenNumber) {
