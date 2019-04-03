@@ -51,6 +51,7 @@ function newExercise () {
     document.getElementById('hundredsinput').value = '';
     document.getElementById('tensinput').value = '';
     document.getElementById('onesinput').value = '';
+    hideDots ();
     let inputBoxes = document.getElementsByClassName('input-box');
     Array.from(inputBoxes).forEach(function(inputBox){
       inputBox.style.opacity = '';
@@ -62,58 +63,19 @@ function newExercise () {
       input.style.border = '';
       input.style.width = '';
     }); 
-    document.getElementById('thousandsinput').onkeyup = function() {
-      if (event.keyCode == 8) {
-        return
-      } else {
-        document.getElementById('hundredsinput').focus();
-      }
-    }
-    document.getElementById('hundredsinput').onkeyup = function() {
-      if (event.keyCode == 8) {
-        return
-      } else {
-        document.getElementById('tensinput').focus();
-      }
-    }
-    document.getElementById('tensinput').onkeyup = function() {
-      if (event.keyCode == 8) {
-        return
-      } else {
-        document.getElementById('onesinput').focus();
-      }
-    }
-    document.getElementById('onesinput').onkeyup = function() {
-      if (event.keyCode == 8) {
-        return
-      } else {
-        document.getElementById('check').focus();
-      }
-    }
+    focus ();
 
     if (difficulty == 2) {
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
       document.getElementById('thousands-input').style.display = 'none';
       document.getElementById('hundreds-input').style.display = 'none';
-      let inputs = document.getElementsByClassName('input');
-      Array.from(inputs).forEach(function(input){
-        input.style.backgroundColor = 'green'; 
-        input.style.border = '';
-      });
-      document.getElementById('input-container').style.border = "none";
-      let inputBoxes = document.getElementsByClassName('input-box');
-      Array.from(inputBoxes).forEach(function(inputBox){
-        inputBox.style.backgroundColor = '';
-        inputBox.style.opacity = '';
-      });
     }
     if (difficulty == 3) {
       addHundredsImages (numberOfHundreds);
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
       document.getElementById('thousands-input').style.display = 'none';
-      document.getElementById('exercise-number').innerText = 'Wpisz ile jest setek, dziesiątek i jedności.'
     }
     if (difficulty == 4) {
       addThousandsImages (numberOfThousands);
@@ -472,30 +434,6 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
       let typedNumberHundreds = document.getElementById('hundredsinput').value;
       let typedNumberTens = document.getElementById('tensinput').value;
       let typedNumberOnes = document.getElementById('onesinput').value;
-      if (parseInt(typedNumberOnes, 10) !== numberOfOnes) {
-        document.getElementById('onesinput').style.opacity = '1';
-        document.getElementById('onesinput').focus();
-      } else {
-        document.getElementById('onesinput').style.opacity = '';
-      }
-      if (parseInt(typedNumberTens, 10) !== numberOfTens) {
-        document.getElementById('tensinput').style.opacity = '1';
-        document.getElementById('tensinput').focus();
-      } else {
-        document.getElementById('tensinput').style.opacity = '';
-      }
-      if (parseInt(typedNumberHundreds, 10) !== numberOfHundreds) {
-        document.getElementById('hundredsinput').style.opacity = '1';
-        document.getElementById('hundredsinput').focus();
-      } else {
-        document.getElementById('hundredsinput').style.opacity = '';
-      }
-      if (parseInt(typedNumberThousands, 10) !== numberOfThousands) {
-        document.getElementById('thousandsinput').style.opacity = '1';
-        document.getElementById('thousandsinput').focus();
-      } else {
-        document.getElementById('thousandsinput').style.opacity = '';
-      }
       if (parseInt(typedNumberThousands, 10) === numberOfThousands 
         && parseInt(typedNumberHundreds, 10) === numberOfHundreds
         && parseInt(typedNumberTens, 10) === numberOfTens
@@ -503,7 +441,7 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
       ) {
         correctdisplayLevel1 ()
       } else {
-        mistakeDisplayLevel1 ()
+        mistakeDisplayLevel1 (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
       }
     }
   }
@@ -586,6 +524,7 @@ function correctdisplayLevel1 () {
   document.getElementById('feedback').innerText = 'Dobrze!';
   document.getElementById('right-arrow').style.display = '';
   document.getElementById('right-arrow').onclick = newExercise;
+  hideDots ();
   startArrow = setInterval(animateRightArrow, 600);
   goodAnswersCount = goodAnswersCount + 1;
   let inputs = document.getElementsByClassName('input');
@@ -603,11 +542,12 @@ function correctdisplayLevel1 () {
   document.getElementById('smile').style.display = '';
 }
 
-function mistakeDisplayLevel1 () {
+function mistakeDisplayLevel1 (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
   view = 'Mistake display';
   document.getElementById('feedback').style.display = '';
   document.getElementById('feedback').innerText = 'Spróbuj jeszcze raz';
   document.getElementById('check').style.display = 'none';
+
   goodAnswersCount = 0;
   showCheckButton ();
   let inputBoxes = document.getElementsByClassName('input-box');
@@ -615,6 +555,46 @@ function mistakeDisplayLevel1 () {
   let typedNumberHundreds = document.getElementById('hundredsinput').value;
   let typedNumberTens = document.getElementById('tensinput').value;
   let typedNumberOnes = document.getElementById('onesinput').value;
+  if (parseInt(typedNumberOnes, 10) !== numberOfOnes) {
+    document.getElementById('onesinput').style.opacity = '1';
+    document.getElementById('onesinput').focus();
+    document.getElementById('1-wrong-dot').style.display = '';
+    document.getElementById('1-correct-dot').style.display = 'none';
+    } else {
+    document.getElementById('onesinput').style.opacity = '';
+    document.getElementById('1-wrong-dot').style.display = 'none';
+    document.getElementById('1-correct-dot').style.display = '';
+  }
+  if (parseInt(typedNumberTens, 10) !== numberOfTens) {
+    document.getElementById('tensinput').style.opacity = '1';
+    document.getElementById('tensinput').focus();
+    document.getElementById('10-wrong-dot').style.display = '';
+    document.getElementById('10-correct-dot').style.display = 'none';
+    } else {
+    document.getElementById('tensinput').style.opacity = '';
+    document.getElementById('10-wrong-dot').style.display = 'none';
+    document.getElementById('10-correct-dot').style.display = '';
+  }
+  if (parseInt(typedNumberHundreds, 10) !== numberOfHundreds) {
+    document.getElementById('hundredsinput').style.opacity = '1';
+    document.getElementById('hundredsinput').focus();
+    document.getElementById('100-wrong-dot').style.display = 'none';
+    document.getElementById('100-correct-dot').style.display = '';
+    } else {
+    document.getElementById('hundredsinput').style.opacity = '';
+    document.getElementById('100-wrong-dot').style.display = 'none';
+    document.getElementById('100-correct-dot').style.display = '';
+  }
+  if (parseInt(typedNumberThousands, 10) !== numberOfThousands) {
+    document.getElementById('thousandsinput').style.opacity = '1';
+    document.getElementById('thousandsinput').focus();
+    document.getElementById('1000-wrong-dot').style.display = 'none';
+    document.getElementById('1000-correct-dot').style.display = '';
+    } else {
+    document.getElementById('thousandsinput').style.opacity = '';
+    document.getElementById('1000-wrong-dot').style.display = 'none';
+    document.getElementById('1000-correct-dot').style.display = '';
+  }
 }
 
 function displayLevel2 (typedWholeNumber, givenNumber) {
@@ -782,4 +762,42 @@ function enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
 function enddisplay () {
   document.getElementById('exercise-container').style.display = 'none';
   document.getElementById('exercise-number').innerText = 'koniec'
+}
+
+function focus () {
+  document.getElementById('thousandsinput').onkeyup = function() {
+      if (event.keyCode == 8) {
+        return
+      } else {
+        document.getElementById('hundredsinput').focus();
+      }
+    }
+    document.getElementById('hundredsinput').onkeyup = function() {
+      if (event.keyCode == 8) {
+        return
+      } else {
+        document.getElementById('tensinput').focus();
+      }
+    }
+    document.getElementById('tensinput').onkeyup = function() {
+      if (event.keyCode == 8) {
+        return
+      } else {
+        document.getElementById('onesinput').focus();
+      }
+    }
+    document.getElementById('onesinput').onkeyup = function() {
+      if (event.keyCode == 8) {
+        return
+      } else {
+        document.getElementById('check').focus();
+      }
+    }
+}
+
+function hideDots () {
+  let dots = document.getElementsByClassName('dot');
+    Array.from(dots).forEach(function(dot){
+      dot.style.display ='none';
+    });
 }

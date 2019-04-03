@@ -278,3 +278,27 @@ body {
   position: absolute;
   padding: 10px;
 }
+
+.correct-dot {
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  background-color: #efc344;
+  bottom: 32px;
+  position: absolute;
+  padding: 3px;
+}
+
+.wrong-dot {
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  background-color: #a89a79;
+  bottom: 32px;
+  position: absolute;
+  padding: 3px;
+}
+
+
+
+
