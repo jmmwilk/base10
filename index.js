@@ -63,16 +63,32 @@ function newExercise () {
       input.style.width = '';
     }); 
     document.getElementById('thousandsinput').onkeyup = function() {
-      document.getElementById('hundredsinput').focus();
+      if (event.keyCode == 8) {
+        return
+      } else {
+        document.getElementById('hundredsinput').focus();
+      }
     }
     document.getElementById('hundredsinput').onkeyup = function() {
-      document.getElementById('tensinput').focus();
+      if (event.keyCode == 8) {
+        return
+      } else {
+        document.getElementById('tensinput').focus();
+      }
     }
     document.getElementById('tensinput').onkeyup = function() {
-      document.getElementById('onesinput').focus();
+      if (event.keyCode == 8) {
+        return
+      } else {
+        document.getElementById('onesinput').focus();
+      }
     }
     document.getElementById('onesinput').onkeyup = function() {
-      document.getElementById('check').focus();
+      if (event.keyCode == 8) {
+        return
+      } else {
+        document.getElementById('check').focus();
+      }
     }
 
     if (difficulty == 2) {
@@ -456,6 +472,30 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
       let typedNumberHundreds = document.getElementById('hundredsinput').value;
       let typedNumberTens = document.getElementById('tensinput').value;
       let typedNumberOnes = document.getElementById('onesinput').value;
+      if (parseInt(typedNumberOnes, 10) !== numberOfOnes) {
+        document.getElementById('onesinput').style.opacity = '1';
+        document.getElementById('onesinput').focus();
+      } else {
+        document.getElementById('onesinput').style.opacity = '';
+      }
+      if (parseInt(typedNumberTens, 10) !== numberOfTens) {
+        document.getElementById('tensinput').style.opacity = '1';
+        document.getElementById('tensinput').focus();
+      } else {
+        document.getElementById('tensinput').style.opacity = '';
+      }
+      if (parseInt(typedNumberHundreds, 10) !== numberOfHundreds) {
+        document.getElementById('hundredsinput').style.opacity = '1';
+        document.getElementById('hundredsinput').focus();
+      } else {
+        document.getElementById('hundredsinput').style.opacity = '';
+      }
+      if (parseInt(typedNumberThousands, 10) !== numberOfThousands) {
+        document.getElementById('thousandsinput').style.opacity = '1';
+        document.getElementById('thousandsinput').focus();
+      } else {
+        document.getElementById('thousandsinput').style.opacity = '';
+      }
       if (parseInt(typedNumberThousands, 10) === numberOfThousands 
         && parseInt(typedNumberHundreds, 10) === numberOfHundreds
         && parseInt(typedNumberTens, 10) === numberOfTens
@@ -464,23 +504,6 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
         correctdisplayLevel1 ()
       } else {
         mistakeDisplayLevel1 ()
-      }
-      if (parseInt(typedNumberOnes, 10) !== numberOfOnes) {
-        document.getElementById('onesinput').style.opacity = '1';
-        document.getElementById('onesinput').focus();
-      }
-      if (parseInt(typedNumberTens, 10) !== numberOfTens) {
-        document.getElementById('tensinput').style.opacity = '1';
-        document.getElementById('tensinput').focus();
-      }
-      if (parseInt(typedNumberHundreds, 10) !== numberOfHundreds) {
-        document.getElementById('hundredsinput').style.opacity = '1';
-        document.getElementById('hundredsinput').focus();
-      }
-      if (parseInt(typedNumberThousands, 10) !== numberOfThousands) {
-        document.getElementById('thousandsinput').style.opacity = '1';
-        document.getElementById('thousandsinput').focus();
-        console.log('mama');
       }
     }
   }
@@ -572,6 +595,7 @@ function correctdisplayLevel1 () {
   });
   let inputBoxes = document.getElementsByClassName('input-box');
   Array.from(inputBoxes).forEach(function(inputBox){
+    console.log('papryka');
     inputBox.style.backgroundColor = 'rgba(0, 0, 0, 0)';
     inputBox.style.opacity = '1';
   });

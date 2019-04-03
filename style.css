@@ -24,7 +24,7 @@ body {
 
 #instruction {
   width: 1000px;
-  height: 150px;
+  height: 140px;
   background-color: #eee5d7;
   border: #584434 solid 8px;
   color: #584434;
@@ -41,12 +41,7 @@ body {
   top: -8px;
   right: -8px;
   position: absolute;
-  border: #584434 solid 8px;;
-}
-
-#imgX {
-  width: 34px;
-  height: 34px;
+  border: #584434 solid 8px;
 }
 
 #exercise-container {
