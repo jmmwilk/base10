@@ -2,13 +2,21 @@
   box-sizing: border-box;
 }
 
+
 body {
   margin: 0;
   padding: 20px 0 0 0;
   background-color: #eee5d7;
-  width: 2000px;
+  width: auto;
   height: 100%
 }
+
+@media (orientation: portrait) {
+  body: {
+    width: 2000px;
+  }
+}
+
 
 #aplication {
   width: 1317px;
