@@ -10,12 +10,12 @@ body {
   height: 100%
 }
 
-@media (orientation: portrait) {
+@media all and (orientation:portrait) {
   body: {
     width: 2000px;
   }
 }
-@media (orientation: landscape) {
+@media all and (orientation:landscape) {
   body: {
     width: auto;
   }
