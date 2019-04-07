@@ -57,7 +57,7 @@ body {
   height: 896px;
   width: 1150px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: #eee5d7;
 }
 
@@ -308,6 +308,7 @@ body {
   padding: 7px;
 }
 
-
-
+.avoid-clicks {
+  pointer-events: none
+}
 

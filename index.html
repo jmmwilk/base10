@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="shrink-to-fit=yes, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=yes">
     <meta name="theme-color" content="#000000">
     <title>Quiz</title>
     <link href='style.css' rel='stylesheet' type='text/css'>
@@ -74,9 +74,15 @@
           <input id= "whole-number-input"/>
         </div>
         <div id="side-bar">
-          <button id="check">
+          <div id="calculator-container">
+            <div id="calculator">
+            </div>
+          </div>
+          <div id="check-container">
+            <button id="check">
             Sprawdź
-          </button>
+            </button>
+          </div>
           <div id='make-number'>
             <div id='make-number-thousands' class='make-number'>
             </div>
@@ -86,8 +92,6 @@
             </div>
             <div id='make-number-ones' class='make-number'>
             </div>
-          </div>
-          <div id="feedback">
           </div>
         </div>
       </div>
