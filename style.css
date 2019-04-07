@@ -7,13 +7,17 @@ body {
   margin: 0;
   padding: 20px 0 0 0;
   background-color: #eee5d7;
-  width: auto;
   height: 100%
 }
 
 @media (orientation: portrait) {
   body: {
     width: 2000px;
+  }
+}
+@media (orientation: landscape) {
+  body: {
+    width: auto;
   }
 }
 
