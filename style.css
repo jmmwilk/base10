@@ -23,7 +23,7 @@ body {
 
 
 #aplication {
-  width: 1317px;
+  width: 1452px;
   height: 900px;
   display: flex;
   flex-direction: column;
@@ -54,11 +54,30 @@ body {
 }
 
 #exercise-container {
-  height: 896px;
-  width: 1150px;
+  height: 796px;
+  width: 1452px;
   display: flex;
   flex-direction: row;
   background-color: #eee5d7;
+}
+
+#exercise {
+  height: 796px;
+  width: 1150px;
+  border: #584434 solid 7px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#side-bar {
+  width: 300px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee5d7;
+  display: flex;
+  flex-direction: column;
 }
 
 #columns-container {
@@ -73,26 +92,9 @@ body {
   justify-content: center;
 }
 
-#exercise {
-  height: 796px;
-  border: #584434 solid 7px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-#side-bar {
-  width: 100%;
-  height: 100px;
-  justify-content: center;
-  align-items: center;
-  background-color: #eee5d7;
-  display: flex;
-}
-
 #right-arrow {
   position: absolute;
-  top: 400px;
+  top: 500px;
   right: -55px;
 }
 
@@ -102,6 +104,61 @@ body {
   top: 400px;
   transform:
     rotate(180deg)
+}
+
+#calculator-container {
+  height: 546px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#calculator {
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  height: 120px
+  width: 100%;
+  display: flex;
+}
+
+.digit {
+  height: 100px;
+  width: 90px;
+  border: solid #eee5d7 1px;
+  font-size: 90px;
+  font-family: Fira Sans;
+  font-weight: bold;
+  text-align: center;
+  color: #eee5d7;
+  background-color: #584434;
+}
+
+#delete {
+  height: 100px;
+  width: 180px;
+  border: solid #eee5d7 1px;
+  background-color: #584434;
+}
+
+#check-container {
+  height: 250px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#check {
+  height: 70px;
+  width: 270px;
+  font-size: 30px;
+  color: #eee5d7;
+  background-color: #584434;
 }
 
 #thousands {
@@ -201,14 +258,6 @@ body {
 #ones-input {
   width: 230px;
   background-color: #6bab46;
-}
-
-#check {
-  height: 70px;
-  width: 290px;
-  font-size: 30px;
-  color: #eee5d7;
-  background-color: #584434;
 }
 
 #make-number {
