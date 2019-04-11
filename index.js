@@ -1,3 +1,4 @@
+let device = 'mac';
 const thousandBlockStep = 117;
 const hundredBlockStep = 36;
 const tenBlockStep = 36;
@@ -13,11 +14,13 @@ let difficulty = 4;
 let view = '';
 let startArrow;
 let inputsIds = ['thousandsinput', 'hundredsinput', 'tensinput', 'onesinput'];
+let currentInputId;
 
 function start () {
   addRightArrow ();
   newExercise ();
   hideBuildingBlocks ();
+  console.log(navigator.userAgent);
 //  hideExercise ();
 }
 
@@ -41,7 +44,10 @@ function newExercise () {
   document.getElementById('x').onclick = function(){
     document.getElementById('instruction').style.display = 'none';
     document.getElementById('thousandsinput').focus();
+    currentInputId = 'thousandsinput';
   }
+  workingCalculator ();
+  inputFocus(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
   
   if (levelNumber == 1) {
     document.getElementById('make-number').style.display = 'none';
@@ -614,7 +620,6 @@ function animateRightArrow () {
   let rightArrow = document.getElementById('right-arrow');
   rightArrow.style.right = '-60px';
   animate ('right-arrow', 'right', -55, -60, 300);
-  console.log ('nalesniki');
 }
 
 function changeLevel() {
@@ -670,14 +675,12 @@ function enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
   if (view == 'New exercise' || view == 'Mistake display') {
     document.body.onkeydown = function (event) {
       if (event.keyCode == 13) {
-        console.log('enter - check');
         check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
       }
     }
   } else {
     document.body.onkeydown = function (event) {
       if (event.keyCode == 13) {
-        console.log('enter - new exercise');
         newExercise ();
       }
     }
@@ -700,6 +703,10 @@ function inputFocus (numberOfThousands, numberOfHundreds, numberOfTens, numberOf
         focusOnNextWrongInput (i, correctAnswers)
       }
     }
+    document.getElementById(inputsIds[i]).oninput = function () {
+      focusOnNextWrongInput (i, correctAnswers);
+      console.log('zupa');
+    }
   }
 }
 
@@ -708,9 +715,11 @@ function focusOnNextWrongInput (currentInputIndex, correctAnswers) {
     let input = document.getElementById(inputsIds[i])
     if (parseInt (input.value, 10) !== correctAnswers[i]) {
       input.focus ();
+      currentInputId = input.id;
       return
     }
   }
+  console.log (currentInputId);
 }
 
 function blockCorrectInput (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
@@ -718,9 +727,7 @@ function blockCorrectInput (numberOfThousands, numberOfHundreds, numberOfTens, n
 
   for (let i=0; i<4; i++) {
     let input = document.getElementById(inputsIds[i])
-    console.log((parseInt (input.value, 10) === correctAnswers[i]));
     if (parseInt (input.value, 10) === correctAnswers[i]) {
-      console.log('pierogi');
       input.classList.add('avoid-clicks');
     }
   } 
@@ -811,4 +818,13 @@ function runCorrectDisplay () {
   document.getElementById('smile').style.display = '';
 }
   
+function workingCalculator () {
+  let digits = document.getElementsByClassName('digit');
+  Array.from(digits).forEach(function(digit){
+    digit.onclick = function () {
+      console.log (document.getElementById(currentInputId).value = digit.id);
+      document.getElementById(currentInputId).value = digit.id
+    }
+  })
+}
 

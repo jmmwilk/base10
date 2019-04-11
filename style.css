@@ -33,12 +33,12 @@ body {
 
 #instruction {
   width: 1000px;
-  height: 140px;
   background-color: #eee5d7;
   border: #584434 solid 8px;
   color: #584434;
   position: absolute;
   top: 200px;
+  left: 70px;
   z-index: 4;
   font-size: 50px;
   text-align: center;
