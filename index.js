@@ -1,4 +1,4 @@
-let device = 'mac';
+let device = 'tablet';
 const thousandBlockStep = 117;
 const hundredBlockStep = 36;
 const tenBlockStep = 36;
@@ -41,15 +41,12 @@ function newExercise () {
   document.getElementById('smile').style.display = 'none';
   clearInterval(startArrow);
   document.getElementById('right-arrow').style.display = 'none';
-  document.getElementById('x').onclick = function(){
-    document.getElementById('instruction').style.display = 'none';
-    document.getElementById('thousandsinput').focus();
-    currentInputId = 'thousandsinput';
-  }
-  workingCalculator ();
-  inputFocus(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
+  workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
+
   
   if (levelNumber == 1) {
+    document.getElementById('instruction').style.display = 'none';
+    setTimeout (instructionDisplay, 500);
     document.getElementById('make-number').style.display = 'none';
     document.getElementById('whole-number-input').style.display = 'none';
     document.getElementById('check').style.display = '';
@@ -71,6 +68,9 @@ function newExercise () {
     }); 
     inputFocus (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
     unblockInputs (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
+    document.getElementById('check').onclick = function () {
+        check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
+       };
 
     if (difficulty == 2) {
       addTensImages (numberOfTens);
@@ -93,9 +93,6 @@ function newExercise () {
     if (difficulty== 5) {
       enddisplay ();
     }
-    document.getElementById('check').onclick = function () {
-        check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
-       };
   }
 
   if (levelNumber == 2) {
@@ -184,6 +181,27 @@ function newExercise () {
   changeLevel ();
 
 }
+
+function instructionDisplay () {
+  document.getElementById('instruction').style.display = '';
+  document.getElementById('x').onclick = function(){
+    document.getElementById('instruction').style.display = 'none';
+    focusOrOpacity ('thousandsinput');
+    currentInputId = 'thousandsinput';
+  }
+}
+
+
+
+function focusOrOpacity (inputId) {
+  if (device == 'mac') {
+    document.getElementById(inputId).focus();
+  }
+  if (device == 'tablet') {
+    document.getElementById(inputId).style.opacity = 1;
+  }
+}
+  
 
 function hideExercise () {
   document.getElementById('thousands').style.display = 'none';
@@ -513,11 +531,7 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
 
 
 function showCheckButton () {
-  let inputs = document.getElementsByClassName('input-box');
-  Array.from(inputs).forEach(function(input){input.onkeydown = function () {
-    document.getElementById('check').style.display = '';
-    }
-  })
+  document.getElementById('check').style.display = '';
 }
 
 function correctdisplayLevel1 (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
@@ -528,12 +542,12 @@ function correctdisplayLevel1 (numberOfThousands, numberOfHundreds, numberOfTens
 
 function mistakeDisplayLevel1 (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
   view = 'Mistake display';
-  document.getElementById('check').style.display = 'none';
-
   goodAnswersCount = 0;
   showCheckButton ();
   inputBoxesdisplay (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
   blockCorrectInput (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
+  let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes];
+  focusOnNextWrongInput (-1, correctAnswers);
 }
 
 function displayLevel2 (typedWholeNumber, givenNumber) {
@@ -693,8 +707,10 @@ function enddisplay () {
 }
 
 function inputFocus (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
+  if (answersCount >= 1) {
+    document.getElementById('thousandsinput').focus();
+  };
   let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes];
-
   for (let i=0; i<4; i++) {
     document.getElementById(inputsIds[i]).onkeyup = function() {
       if (event.keyCode == 8) {
@@ -703,10 +719,6 @@ function inputFocus (numberOfThousands, numberOfHundreds, numberOfTens, numberOf
         focusOnNextWrongInput (i, correctAnswers)
       }
     }
-    document.getElementById(inputsIds[i]).oninput = function () {
-      focusOnNextWrongInput (i, correctAnswers);
-      console.log('zupa');
-    }
   }
 }
 
@@ -714,12 +726,28 @@ function focusOnNextWrongInput (currentInputIndex, correctAnswers) {
   for (let i=currentInputIndex + 1; i<4; i++) {
     let input = document.getElementById(inputsIds[i])
     if (parseInt (input.value, 10) !== correctAnswers[i]) {
-      input.focus ();
+      focusOrOpacity(input.id);
       currentInputId = input.id;
       return
     }
   }
-  console.log (currentInputId);
+  if (currentInputIndex == 3) {
+    document.getElementById('check').focus();
+    currentInputId = ('thousandsinput');
+  }
+}
+
+function focusOnFirstWrongInput (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
+  let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes];
+  for (let i=0; i<4; i++) {
+    let input = document.getElementById(inputsIds[i])
+    if (parseInt (input.value, 10) !== correctAnswers[i]) {
+      console.log('bulka');
+      focusOrOpacity(input.id);
+      currentInputId = input.id;
+      return
+    }
+  }
 }
 
 function blockCorrectInput (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
@@ -818,13 +846,38 @@ function runCorrectDisplay () {
   document.getElementById('smile').style.display = '';
 }
   
-function workingCalculator () {
+function workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
+  let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes]
+  
   let digits = document.getElementsByClassName('digit');
   Array.from(digits).forEach(function(digit){
     digit.onclick = function () {
-      console.log (document.getElementById(currentInputId).value = digit.id);
-      document.getElementById(currentInputId).value = digit.id
+      console.log ('currentInputId', currentInputId);
+      document.getElementById(currentInputId).value = digit.id;
+      let i;
+      if (currentInputId == 'thousandsinput') {
+        i = 0;
+      }
+      if (currentInputId == 'hundredsinput') {
+        i = 1;
+      }
+      if (currentInputId == 'tensinput') {
+        i = 2;
+      }
+      if (currentInputId == 'onesinput') {
+        i = 3;
+      }
+      focusOnNextWrongInput (i, correctAnswers)
     }
   })
+  let deleteButton = document.getElementById('delete');
+  deleteButton.onclick = function () {
+    document.getElementById(currentInputId).value = '';
+    focusOrOpacity(currentInputId);
+  }
 }
+
+
+
+
 

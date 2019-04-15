@@ -94,7 +94,7 @@ body {
 
 #right-arrow {
   position: absolute;
-  top: 500px;
+  bottom: 100px;
   right: -55px;
 }
 
