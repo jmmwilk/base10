@@ -232,6 +232,10 @@ body {
   opacity: 1;
 }
 
+.current-input{
+  opacity: 1;
+}
+
 .building-block {
   height: 150px;
   border: #584434 solid 8px;
@@ -360,4 +364,5 @@ body {
 .avoid-clicks {
   pointer-events: none
 }
+
 

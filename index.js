@@ -15,12 +15,15 @@ let view = '';
 let startArrow;
 let inputsIds = ['thousandsinput', 'hundredsinput', 'tensinput', 'onesinput'];
 let currentInputId;
+let currentInput;
 
 function start () {
   addRightArrow ();
   newExercise ();
   hideBuildingBlocks ();
   console.log(navigator.userAgent);
+  document.getElementById('instruction').style.display = 'none';
+  instructionDisplay();
 //  hideExercise ();
 }
 
@@ -42,18 +45,15 @@ function newExercise () {
   clearInterval(startArrow);
   document.getElementById('right-arrow').style.display = 'none';
   workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
-
   
   if (levelNumber == 1) {
-    document.getElementById('instruction').style.display = 'none';
-    setTimeout (instructionDisplay, 500);
     document.getElementById('make-number').style.display = 'none';
     document.getElementById('whole-number-input').style.display = 'none';
     document.getElementById('check').style.display = '';
-    document.getElementById('thousandsinput').value = '';
-    document.getElementById('hundredsinput').value = '';
-    document.getElementById('tensinput').value = '';
-    document.getElementById('onesinput').value = '';
+    document.getElementById('thousandsinput').innerText = '';
+    document.getElementById('hundredsinput').innerText = '';
+    document.getElementById('tensinput').innerText = '';
+    document.getElementById('onesinput').innerText = '';
     hideDots ();
     let inputBoxes = document.getElementsByClassName('input-box');
     Array.from(inputBoxes).forEach(function(inputBox){
@@ -65,12 +65,14 @@ function newExercise () {
       input.style.backgroundColor = ''; 
       input.style.border = '';
       input.style.width = '';
-    }); 
-    inputFocus (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
+    });
+    clearInputFocus ();
+    thousandsInputFocus ();
+    inputFocus ();
     unblockInputs (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
     document.getElementById('check').onclick = function () {
-        check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
-       };
+      check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
+    };
 
     if (difficulty == 2) {
       addTensImages (numberOfTens);
@@ -100,7 +102,7 @@ function newExercise () {
     document.getElementById('check').style.display = '';
     document.getElementById('input-container').style.display = 'none';
     document.getElementById('whole-number-input').style.display = '';
-    document.getElementById('whole-number-input').value = '';
+    document.getElementById('whole-number-input').innerText = '';
     document.getElementById('feedback').style.display = 'none';
     if (difficulty == 1) {
       addOnesImages (numberOfOnes);
@@ -186,19 +188,6 @@ function instructionDisplay () {
   document.getElementById('instruction').style.display = '';
   document.getElementById('x').onclick = function(){
     document.getElementById('instruction').style.display = 'none';
-    focusOrOpacity ('thousandsinput');
-    currentInputId = 'thousandsinput';
-  }
-}
-
-
-
-function focusOrOpacity (inputId) {
-  if (device == 'mac') {
-    document.getElementById(inputId).focus();
-  }
-  if (device == 'tablet') {
-    document.getElementById(inputId).style.opacity = 1;
   }
 }
   
@@ -427,8 +416,8 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
   if (levelNumber == 1) {
 
     if (difficulty == 2) {
-      let typedNumberTens = document.getElementById('tensinput').value;
-      let typedNumberOnes = document.getElementById('onesinput').value;
+      let typedNumberTens = document.getElementById('tensinput').innerText;
+      let typedNumberOnes = document.getElementById('onesinput').innerText;
       if (parseInt(typedNumberTens, 10) === numberOfTens
         && parseInt(typedNumberOnes, 10) === numberOfOnes
       ) {
@@ -439,9 +428,9 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
     }
 
     if (difficulty == 3) {
-      let typedNumberHundreds = document.getElementById('hundredsinput').value;
-      let typedNumberTens = document.getElementById('tensinput').value;
-      let typedNumberOnes = document.getElementById('onesinput').value;
+      let typedNumberHundreds = document.getElementById('hundredsinput').innerText;
+      let typedNumberTens = document.getElementById('tensinput').innerText;
+      let typedNumberOnes = document.getElementById('onesinput').innerText;
       if (parseInt(typedNumberHundreds, 10) === numberOfHundreds
         && parseInt(typedNumberTens, 10) === numberOfTens
         && parseInt(typedNumberOnes, 10) === numberOfOnes
@@ -453,10 +442,10 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
     }
 
     if (difficulty == 4) {
-      let typedNumberThousands = document.getElementById('thousandsinput').value;
-      let typedNumberHundreds = document.getElementById('hundredsinput').value;
-      let typedNumberTens = document.getElementById('tensinput').value;
-      let typedNumberOnes = document.getElementById('onesinput').value;
+      let typedNumberThousands = document.getElementById('thousandsinput').innerText;
+      let typedNumberHundreds = document.getElementById('hundredsinput').innerText;
+      let typedNumberTens = document.getElementById('tensinput').innerText;
+      let typedNumberOnes = document.getElementById('onesinput').innerText;
       if (parseInt(typedNumberThousands, 10) === numberOfThousands 
         && parseInt(typedNumberHundreds, 10) === numberOfHundreds
         && parseInt(typedNumberTens, 10) === numberOfTens
@@ -470,7 +459,7 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
   }
 
   if (levelNumber == 2) {
-    let typedWholeNumber = document.getElementById('whole-number-input').value;
+    let typedWholeNumber = document.getElementById('whole-number-input').innerText;
     if (difficulty == 1) {
       let givenNumber = numberOfOnes
       displayLevel2 (typedWholeNumber, givenNumber);
@@ -547,6 +536,7 @@ function mistakeDisplayLevel1 (numberOfThousands, numberOfHundreds, numberOfTens
   inputBoxesdisplay (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
   blockCorrectInput (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
   let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes];
+  clearInputFocus ();
   focusOnNextWrongInput (-1, correctAnswers);
 }
 
@@ -706,34 +696,69 @@ function enddisplay () {
   document.getElementById('exercise-number').innerText = 'koniec'
 }
 
-function inputFocus (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
-  if (answersCount >= 1) {
-    document.getElementById('thousandsinput').focus();
-  };
-  let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes];
+function inputFocus () {
   for (let i=0; i<4; i++) {
-    document.getElementById(inputsIds[i]).onkeyup = function() {
-      if (event.keyCode == 8) {
-        return
-      } else {
-        focusOnNextWrongInput (i, correctAnswers)
+    document.getElementById(inputsIds[i]).onclick = function () {
+      for (let i=0; i<4; i++) {
+        document.getElementById(inputsIds[i]).classList.remove('current-input');
       }
+      currentInput = document.getElementById(inputsIds[i]);
+      currentInputId = inputsIds[i];
+      currentInput.classList.add('current-input');
     }
+  }
+  // currentInput = document.getElementById(inputId);
+  // currentInputId = inputId;
+  // currentInput.classList.add('current-input');
+}
+
+function clearInputFocus () {
+  for (let i=1; i<4; i++) {
+    document.getElementById(inputsIds[i]).classList.remove('current-input');
   }
 }
 
+function thousandsInputFocus () {
+  currentInputId = 'thousandsinput';
+  currentInput = document.getElementById(currentInputId);
+  currentInput.classList.add('current-input');
+}
+
+// function inputFocus (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
+//   if (answersCount >= 1) {
+//     document.getElementById('thousandsinput').focus();
+//     currentInputId = 'thousandsinput';
+//   };
+//   let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes];
+//   for (let i=0; i<4; i++) {
+//     document.getElementById(inputsIds[i]).onkeyup = function() {
+//       if (event.keyCode == 8) {
+//         return
+//       } else {
+//         focusOnNextWrongInput (i, correctAnswers)
+//       }
+//     }
+//   }
+// }
+
 function focusOnNextWrongInput (currentInputIndex, correctAnswers) {
+  let previousInput = document.getElementById(inputsIds[currentInputIndex]);
   for (let i=currentInputIndex + 1; i<4; i++) {
-    let input = document.getElementById(inputsIds[i])
-    if (parseInt (input.value, 10) !== correctAnswers[i]) {
+    let input = document.getElementById(inputsIds[i]);
+    if (parseInt (input.innerText, 10) !== correctAnswers[i]) {
       focusOrOpacity(input.id);
       currentInputId = input.id;
+      currentInput = input;
+      currentInput.classList.add('current-input');
+      if (currentInputIndex != -1) {
+        previousInput.classList.remove('current-input');
+      }
       return
     }
   }
   if (currentInputIndex == 3) {
     document.getElementById('check').focus();
-    currentInputId = ('thousandsinput');
+    previousInput.classList.remove('current-input');
   }
 }
 
@@ -741,12 +766,21 @@ function focusOnFirstWrongInput (numberOfThousands, numberOfHundreds, numberOfTe
   let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes];
   for (let i=0; i<4; i++) {
     let input = document.getElementById(inputsIds[i])
-    if (parseInt (input.value, 10) !== correctAnswers[i]) {
-      console.log('bulka');
+    if (parseInt (input.innerText, 10) !== correctAnswers[i]) {
       focusOrOpacity(input.id);
       currentInputId = input.id;
       return
     }
+  }
+}
+
+function focusOrOpacity (inputId) {
+  if (device == 'mac') {
+    document.getElementById(inputId).focus();
+  }
+  if (device == 'tablet') {
+    document.getElementById(inputId).focus();
+//    document.getElementById(inputId).style.opacity = 1;
   }
 }
 
@@ -755,7 +789,7 @@ function blockCorrectInput (numberOfThousands, numberOfHundreds, numberOfTens, n
 
   for (let i=0; i<4; i++) {
     let input = document.getElementById(inputsIds[i])
-    if (parseInt (input.value, 10) === correctAnswers[i]) {
+    if (parseInt (input.innerText, 10) === correctAnswers[i]) {
       input.classList.add('avoid-clicks');
     }
   } 
@@ -782,44 +816,36 @@ function hideDots () {
 
 function inputBoxesdisplay (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
   let inputBoxes = document.getElementsByClassName('input-box');
-  let typedNumberThousands = document.getElementById('thousandsinput').value;
-  let typedNumberHundreds = document.getElementById('hundredsinput').value;
-  let typedNumberTens = document.getElementById('tensinput').value;
-  let typedNumberOnes = document.getElementById('onesinput').value;
+  let typedNumberThousands = document.getElementById('thousandsinput').innerText;
+  let typedNumberHundreds = document.getElementById('hundredsinput').innerText;
+  let typedNumberTens = document.getElementById('tensinput').innerText;
+  let typedNumberOnes = document.getElementById('onesinput').innerText;
   if (parseInt(typedNumberOnes, 10) !== numberOfOnes) {
-    document.getElementById('onesinput').style.opacity = '1';
     document.getElementById('1-wrong-dot').style.display = '';
     document.getElementById('1-correct-dot').style.display = 'none';
     } else {
-    document.getElementById('onesinput').style.opacity = '';
     document.getElementById('1-wrong-dot').style.display = 'none';
     document.getElementById('1-correct-dot').style.display = '';
     document.getElementById
   }
   if (parseInt(typedNumberTens, 10) !== numberOfTens) {
-    document.getElementById('tensinput').style.opacity = '1';
     document.getElementById('10-wrong-dot').style.display = '';
     document.getElementById('10-correct-dot').style.display = 'none';
     } else {
-    document.getElementById('tensinput').style.opacity = '';
     document.getElementById('10-wrong-dot').style.display = 'none';
     document.getElementById('10-correct-dot').style.display = '';
   }
   if (parseInt(typedNumberHundreds, 10) !== numberOfHundreds) {
-    document.getElementById('hundredsinput').style.opacity = '1';
     document.getElementById('100-wrong-dot').style.display = '';
     document.getElementById('100-correct-dot').style.display = 'none';
     } else {
-    document.getElementById('hundredsinput').style.opacity = '';
     document.getElementById('100-wrong-dot').style.display = 'none';
     document.getElementById('100-correct-dot').style.display = '';
   }
   if (parseInt(typedNumberThousands, 10) !== numberOfThousands) {
-    document.getElementById('thousandsinput').style.opacity = '1';
     document.getElementById('1000-wrong-dot').style.display = '';
     document.getElementById('1000-correct-dot').style.display = 'none';
     } else {
-    document.getElementById('thousandsinput').style.opacity = '';
     document.getElementById('1000-wrong-dot').style.display = 'none';
     document.getElementById('1000-correct-dot').style.display = '';
   }
@@ -852,8 +878,7 @@ function workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, n
   let digits = document.getElementsByClassName('digit');
   Array.from(digits).forEach(function(digit){
     digit.onclick = function () {
-      console.log ('currentInputId', currentInputId);
-      document.getElementById(currentInputId).value = digit.id;
+      document.getElementById(currentInputId).innerText = digit.id;
       let i;
       if (currentInputId == 'thousandsinput') {
         i = 0;
@@ -872,7 +897,7 @@ function workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, n
   })
   let deleteButton = document.getElementById('delete');
   deleteButton.onclick = function () {
-    document.getElementById(currentInputId).value = '';
+    document.getElementById(currentInputId).innerText = '';
     focusOrOpacity(currentInputId);
   }
 }
