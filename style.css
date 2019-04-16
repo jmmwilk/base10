@@ -143,6 +143,12 @@ body {
   width: 180px;
   border: solid #eee5d7 1px;
   background-color: #584434;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#delete-icon {
 }
 
 #check-container {
@@ -364,5 +370,6 @@ body {
 .avoid-clicks {
   pointer-events: none
 }
+
 
 

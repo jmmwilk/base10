@@ -23,7 +23,7 @@ function start () {
   hideBuildingBlocks ();
   console.log(navigator.userAgent);
   document.getElementById('instruction').style.display = 'none';
-  instructionDisplay();
+  setTimeout(instructionDisplay, 500);
 //  hideExercise ();
 }
 
@@ -873,25 +873,28 @@ function runCorrectDisplay () {
 }
   
 function workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
-  let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes]
+  let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes];
+  let correctDots = ['1000-correct-dot', '100-correct-dot', '10-correct-dot', '1-correct-dot'];
+  let wrongDots = ['1000-wrong-dot', '100-wrong-dot', '10-wrong-dot', '1-wrong-dot'];
+  
   
   let digits = document.getElementsByClassName('digit');
   Array.from(digits).forEach(function(digit){
     digit.onclick = function () {
+    let i;
+    if (currentInputId == 'thousandsinput') {
+      i = 0;
+    }
+    if (currentInputId == 'hundredsinput') {
+      i = 1;
+    }
+    if (currentInputId == 'tensinput') {
+      i = 2;
+    }
+    if (currentInputId == 'onesinput') {
+      i = 3;
+    }
       document.getElementById(currentInputId).innerText = digit.id;
-      let i;
-      if (currentInputId == 'thousandsinput') {
-        i = 0;
-      }
-      if (currentInputId == 'hundredsinput') {
-        i = 1;
-      }
-      if (currentInputId == 'tensinput') {
-        i = 2;
-      }
-      if (currentInputId == 'onesinput') {
-        i = 3;
-      }
       focusOnNextWrongInput (i, correctAnswers)
     }
   })
@@ -899,6 +902,21 @@ function workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, n
   deleteButton.onclick = function () {
     document.getElementById(currentInputId).innerText = '';
     focusOrOpacity(currentInputId);
+    let i;
+    if (currentInputId == 'thousandsinput') {
+      i = 0;
+    }
+    if (currentInputId == 'hundredsinput') {
+      i = 1;
+    }
+    if (currentInputId == 'tensinput') {
+      i = 2;
+    }
+    if (currentInputId == 'onesinput') {
+      i = 3;
+    }
+    document.getElementById(correctDots[i]).style.display = 'none';
+    document.getElementById(wrongDots[i]).style.display = 'none';
   }
 }
 
