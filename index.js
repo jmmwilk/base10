@@ -24,7 +24,7 @@ function start () {
   console.log(navigator.userAgent);
   document.getElementById('instruction').style.display = 'none';
   setTimeout(instructionDisplay, 500);
-//  hideExercise ();
+//  hideExercise ()
 }
 
 function newExercise () {
