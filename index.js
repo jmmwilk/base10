@@ -5,7 +5,7 @@ const tenBlockStep = 36;
 const oneBlockStep = 36;
 let goodAnswersCount = 0;
 let answersCount = 0;
-let levelNumber = 1;
+let levelNumber = 3;
 let thousandsBlocksCount = 0;
 let hundredsBlocksCount = 0;
 let tensBlocksCount = 0;
@@ -20,21 +20,20 @@ let currentInput;
 function start () {
   addRightArrow ();
   newExercise ();
-  hideBuildingBlocks ();
+//  hideBuildingBlocks ();
   console.log(navigator.userAgent);
   document.getElementById('instruction').style.display = 'none';
-  setTimeout(instructionDisplay, 500);
 //  hideExercise ()
 }
 
 function newExercise () {
-  changeLevel();
+//  changeLevel();
   view = 'New exercise';
   console.log ('levelNumber' + levelNumber);
   console.log ('difficulty' + difficulty);
   let numberOfThousands = Math.floor ((Math.random() * 9) + 1);
-  let numberOfHundreds = Math.floor (Math.random() * 9 + 1);
-  let numberOfTens  = Math.floor (Math.random() * 9 + 1);
+  let numberOfHundreds = Math.floor (Math.random() * 9);
+  let numberOfTens  = Math.floor (Math.random() * 9);
   let numberOfOnes = Math.floor (Math.random() * 9 + 1);
   document.getElementById('ones-block').innerText = '';
   document.getElementById('tens-block').innerText = '';
@@ -42,11 +41,16 @@ function newExercise () {
   document.getElementById('thousands-block').innerText = '';
   enter (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
   document.getElementById('smile').style.display = 'none';
+  document.getElementById('smileLevel3').style.display = 'none';
+  document.getElementById('sadLevel3').style.display = 'none';
+  document.getElementById('sad').style.display = 'none';
   clearInterval(startArrow);
   document.getElementById('right-arrow').style.display = 'none';
-  workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
   
   if (levelNumber == 1) {
+    hideBuildingBlocks ();
+    setTimeout(instructionDisplay, 500);
+//    document.getElementById('instruction').innerText = 'Wpisz w okienka ile jest tysięcy, setek, dziesiątek i jedności.'
     document.getElementById('make-number').style.display = 'none';
     document.getElementById('whole-number-input').style.display = 'none';
     document.getElementById('check').style.display = '';
@@ -73,6 +77,8 @@ function newExercise () {
     document.getElementById('check').onclick = function () {
       check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
     };
+    workingCalculatorLevel1 (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes);
+
 
     if (difficulty == 2) {
       addTensImages (numberOfTens);
@@ -98,33 +104,31 @@ function newExercise () {
   }
 
   if (levelNumber == 2) {
+    hideBuildingBlocks ();
     document.getElementById('make-number').style.display = 'none';
     document.getElementById('check').style.display = '';
     document.getElementById('input-container').style.display = 'none';
     document.getElementById('whole-number-input').style.display = '';
     document.getElementById('whole-number-input').innerText = '';
-    document.getElementById('feedback').style.display = 'none';
+    workingCalculatorLevel2();
     if (difficulty == 1) {
       addOnesImages (numberOfOnes);
-      document.getElementById('exercise-number').innerText = 'Policz ile jest jedności i wpisz na dole.';
     }
     if (difficulty == 2) {
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
-      document.getElementById('exercise-number').innerText = 'Policz, ile jest dziesiątek i jedności. Wpisz, jaką tworzą liczbę.';
     }
     if (difficulty == 3) {
       addHundredsImages (numberOfHundreds);
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
-      document.getElementById('exercise-number').innerText = 'Policz, ile jest setek, dziesiątek i jedności. Wpisz, jaką tworzą liczbę.';
     }
     if (difficulty == 4) {
       addThousandsImages (numberOfThousands);
       addHundredsImages (numberOfHundreds);
       addTensImages (numberOfTens);
       addOnesImages (numberOfOnes);
-      document.getElementById('exercise-number').innerText = 'Policz, ile jest tysięcy, setek, dziesiątek i jedności. Wpisz, jaką tworzą liczbę.';
+//      document.getElementById('exercise-number').innerText = 'Policz, ile jest tysięcy, setek, dziesiątek i jedności. Wpisz, jaką tworzą liczbę.';
     }
     document.getElementById('check').onclick = function () {
       check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
@@ -134,13 +138,21 @@ function newExercise () {
   if (levelNumber == 3) {
     displayBuildingBlocks ();
     document.getElementById('make-number').style.display = '';
+    document.getElementById('calculator').style.display = 'none';
+    document.getElementById('input-container').style.display = '';
+
+    let inputs = document.getElementsByClassName('input');
+    Array.from(inputs).forEach(function(input){
+      input.style.backgroundColor = ''; 
+      input.style.border = '';
+      input.style.width = '';
+    });
     if (difficulty == 1) {
       document.getElementById('make-number-tens').style.display = 'none';
       document.getElementById('make-number-hundreds').style.display = 'none';
       document.getElementById('make-number-thousands').style.display = 'none';
       document.getElementById('make-number-ones').innerText = numberOfOnes;
       document.getElementById('one-image').onclick = buildOneBlock;
-      document.getElementById('exercise-number').innerText = 'Ułóż ' + numberOfOnes + ' jedności.';
     }
     if (difficulty == 2) {
       document.getElementById('make-number-tens').style.display = '';
@@ -148,7 +160,6 @@ function newExercise () {
       document.getElementById('make-number-ones').innerText = numberOfOnes;
       document.getElementById('ten-image').onclick = buildTenBlock;
       document.getElementById('one-image').onclick = buildOneBlock;
-      document.getElementById('exercise-number').innerText =  'Ułóż liczbę ' + numberOfTens + numberOfOnes;
     }
     if (difficulty == 3) {
       document.getElementById('make-number-hundreds').style.display = '';
@@ -158,7 +169,6 @@ function newExercise () {
       document.getElementById('hundred-image').onclick = buildHundredBlock;
       document.getElementById('ten-image').onclick = buildTenBlock;
       document.getElementById('one-image').onclick = buildOneBlock;
-      document.getElementById('exercise-number').innerText =  'Ułóż liczbę ' + numberOfHundreds + numberOfTens + numberOfOnes;
     }
     if (difficulty == 4) {
       document.getElementById('make-number-thousands').style.display = '';
@@ -170,18 +180,16 @@ function newExercise () {
       document.getElementById('hundred-image').onclick = buildHundredBlock;
       document.getElementById('ten-image').onclick = buildTenBlock;
       document.getElementById('one-image').onclick = buildOneBlock;
-      document.getElementById('exercise-number').innerText =  'Ułóż liczbę ' + numberOfThousands + numberOfHundreds + numberOfTens + numberOfOnes;
+//      document.getElementById('exercise-number').innerText =  'Ułóż liczbę ' + numberOfThousands + numberOfHundreds + numberOfTens + numberOfOnes;
     }
     document.getElementById('check').style.display = '';
-    document.getElementById('input-container').style.display = 'none';
     document.getElementById('whole-number-input').style.display = 'none';
     document.getElementById('check').onclick = function () {
       check(numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
     }
   }
 
-  changeLevel ();
-
+//  changeLevel ();
 }
 
 function instructionDisplay () {
@@ -219,15 +227,22 @@ function buildThousandBlock () {
       thousandsBlocksCount = thousandsBlocksCount - 1;
     }
   };
-  if (thousandsBlocksCount<5) {
-    thousandsBlock.style.top = thousandsBlocksCount * thousandBlockStep + 10 + 'px';
-    thousandsBlock.style.left = thousandsBlocksCount * thousandBlockStep + 10 + 'px';
-  }
-  if (thousandsBlocksCount>=5) {
-    thousandsBlock.style.top = thousandsBlocksCount * thousandBlockStep -80 + 'px';
-    thousandsBlock.style.left = (thousandsBlocksCount - 5) * thousandBlockStep + 10 + 'px';
-  }
-  thousandsBlocksCount = thousandsBlocksCount + 1
+  if (thousandsBlocksCount<3) {
+      thousandsBlock.style.bottom = thousandsBlocksCount * thousandBlockStep + 14 + 'px';
+      thousandsBlock.style.right = 35 + 'px';
+      thousandsBlock.style.zIndex = 2;
+    } 
+    if (thousandsBlocksCount>=3 && thousandsBlocksCount<6) {
+      thousandsBlock.style.bottom = (thousandsBlocksCount-3) * thousandBlockStep + 56 + 'px';
+      thousandsBlock.style.right = 147 + 'px';
+      thousandsBlock.style.zIndex = 1;
+    }
+    if (thousandsBlocksCount>=6) {
+      thousandsBlock.style.bottom = (thousandsBlocksCount-6) * thousandBlockStep + 98 + 'px';
+      thousandsBlock.style.right = 259 + 'px';
+      thousandsBlock.style.zIndex = 0;
+    }
+  thousandsBlocksCount = thousandsBlocksCount + 1;
 }
 
 function buildHundredBlock () {
@@ -244,15 +259,17 @@ function buildHundredBlock () {
       hundredsBlocksCount = hundredsBlocksCount - 1;
     }
   };
-  if (hundredsBlocksCount<5) {
-    hundredsBlock.style.top = hundredsBlocksCount * hundredBlockStep + 10 + 'px';
-    hundredsBlock.style.left = hundredsBlocksCount * hundredBlockStep + 10 + 'px';
+  hundredsBlock.style.left =  29 + 'px';
+  if (hundredsBlocksCount<3) {
+      hundredsBlock.style.bottom = hundredsBlocksCount * hundredBlockStep + 31 + 'px';
+    } 
+    if (hundredsBlocksCount>=3 && hundredsBlocksCount<6) {
+      hundredsBlock.style.bottom = hundredsBlocksCount * hundredBlockStep + 66 + 'px';
     }
-  if (hundredsBlocksCount>=5) {
-    hundredsBlock.style.top = hundredsBlocksCount * hundredBlockStep +50 + 'px';
-    hundredsBlock.style.left = (hundredsBlocksCount - 5) * hundredBlockStep + 10 + 'px';
+    if (hundredsBlocksCount>=6) {
+      hundredsBlock.style.bottom = hundredsBlocksCount * hundredBlockStep + 101 + 'px';
     }
-  hundredsBlocksCount = hundredsBlocksCount + 1
+  hundredsBlocksCount = hundredsBlocksCount + 1;
 }
 
 function buildTenBlock () {
@@ -269,15 +286,18 @@ function buildTenBlock () {
       tensBlocksCount = tensBlocksCount - 1;
     }
   };
+  tensBlock.style.left = 65 + 'px';
   if (tensBlocksCount<3) {
-      tensBlock.style.bottom = 10 + 'px';
-      tensBlock.style.left = tensBlocksCount * tenBlockStep + 10 + 'px';
-  }
-  if (tensBlocksCount>=3) {
-      tensBlock.style.bottom = 70 + 20 + 'px';
-      tensBlock.style.left = (tensBlocksCount - 5) * tenBlockStep + 10 +'px';
-  }
-  tensBlocksCount = tensBlocksCount + 1
+      tensBlock.style.bottom = tensBlocksCount * tenBlockStep + 36 + 'px';
+    } 
+    if (tensBlocksCount>= 3 && tensBlocksCount<6) {
+      tensBlock.style.bottom = tensBlocksCount * tenBlockStep + 66 + 'px';
+    } 
+    if (tensBlocksCount>=6) {
+      tensBlock.style.bottom = tensBlocksCount * tenBlockStep + 96 + 'px';
+    }
+  
+  tensBlocksCount = tensBlocksCount + 1;
 }
 
 function buildOneBlock () {
@@ -294,17 +314,32 @@ function buildOneBlock () {
       onesBlocksCount = onesBlocksCount - 1;
     }
   };
-  onesBlock.style.top = onesBlocksCount * oneBlockStep + 10 + 'px';
-  onesBlock.style.left = 10 + 'px';
-  onesBlocksCount = onesBlocksCount + 1
+  onesBlock.style.left = 95 + 'px';
+  if (onesBlocksCount < 3) {
+    onesBlock.style.bottom = onesBlocksCount * oneBlockStep + 60 + 'px';
+  }
+  if (onesBlocksCount >= 3 && onesBlocksCount < 6) {
+    onesBlock.style.bottom = onesBlocksCount * oneBlockStep + 90 + 'px';
+  }
+  if (onesBlocksCount >= 6 ) {
+    onesBlock.style.bottom = onesBlocksCount * oneBlockStep + 120 + 'px';
+  }
+  onesBlocksCount = onesBlocksCount + 1;
 }
 
 function displayBuildingBlocks () {
-let buildingBlocksNumber = document.getElementsByClassName('building-block').length;
-  for (i=0; i<buildingBlocksNumber; i++) {
-    document.getElementsByClassName('building-block')[i].style.display = '';
-  }
-  
+  let buildingBlocksNumber = document.getElementsByClassName('building-block').length;
+    for (i=0; i<buildingBlocksNumber; i++) {
+      document.getElementsByClassName('building-block')[i].style.display = '';
+    }
+  let inputs = document.getElementsByClassName('input-box');
+  Array.from(inputs).forEach(function(input){
+    input.style.display = 'none';
+  });
+  let dots = document.getElementsByClassName('dot');
+  Array.from(dots).forEach(function(dot){
+    dot.style.display = 'none';
+  });
 }
 
 function hideBuildingBlocks () {
@@ -474,7 +509,7 @@ function check (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes)
     }
     if (difficulty == 4) {
       let givenNumber = numberOfThousands*1000 + numberOfHundreds*100 + numberOfTens*10 + numberOfOnes
-      displayLevel2 (typedWholeNumber, givenNumber)
+        displayLevel2 (typedWholeNumber, givenNumber);
     }
   }
 
@@ -541,29 +576,42 @@ function mistakeDisplayLevel1 (numberOfThousands, numberOfHundreds, numberOfTens
 }
 
 function displayLevel2 (typedWholeNumber, givenNumber) {
+  // let string = document.getElementById('whole-number-input');
+  // string.style.color = 'green';
+  // console.log (string);
+  // console.log (string.charAt(string.length-1));
+//  string.charAt(string.length-1).style.color = 'green';
   if (typedWholeNumber == givenNumber) {
     document.getElementById('check').style.display = 'none';
+    document.getElementById('right-arrow').style.display = '';
     document.getElementById('right-arrow').onclick = newExercise;
+    document.getElementById('smile').style.display = '';
+    document.getElementById('sad').style.display = 'none';
     goodAnswersCount = goodAnswersCount + 1;
-    document.getElementById('exercise-number').innerText = '';
+    startArrow = setInterval(animateRightArrow, 600);
     } else {
     goodAnswersCount = 0;
+    document.getElementById('sad').style.display = '';
   }
 }
 
 function correctDisplayLevel3 () {
   document.getElementById('check').style.display = 'none';
+  document.getElementById('smileLevel3').style.display = '';
+  document.getElementById('sadLevel3').style.display = 'none';
   thousandsBlocksCount = 0;
   hundredsBlocksCount = 0;
   tensBlocksCount = 0;
   onesBlocksCount = 0;
+  document.getElementById('right-arrow').style.display = '';
   document.getElementById('right-arrow').onclick = newExercise;
+  startArrow = setInterval(animateRightArrow, 600);
   goodAnswersCount = goodAnswersCount + 1;
-  document.getElementById('exercise-number').innerText = '';
 }
 
 function mistakeDisplayLevel3 () {
   goodAnswersCount = 0;
+  document.getElementById('sadLevel3').style.display = '';
 }
 
 function runAnimations() {
@@ -872,7 +920,7 @@ function runCorrectDisplay () {
   document.getElementById('smile').style.display = '';
 }
   
-function workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
+function workingCalculatorLevel1 (numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes) {
   let correctAnswers = [numberOfThousands, numberOfHundreds, numberOfTens, numberOfOnes];
   let correctDots = ['1000-correct-dot', '100-correct-dot', '10-correct-dot', '1-correct-dot'];
   let wrongDots = ['1000-wrong-dot', '100-wrong-dot', '10-wrong-dot', '1-wrong-dot'];
@@ -920,7 +968,18 @@ function workingCalculator (numberOfThousands, numberOfHundreds, numberOfTens, n
   }
 }
 
-
-
-
-
+function workingCalculatorLevel2 () {
+  let number = '';
+  let digits = document.getElementsByClassName('digit');
+  Array.from(digits).forEach(function(digit){
+    digit.onclick = function () {
+      number = number.concat(digit.id);
+      document.getElementById('whole-number-input').innerText = number;
+    }
+  })
+  let deleteButton = document.getElementById('delete');
+  deleteButton.onclick = function () {
+    number = number.slice(0, -1);
+    document.getElementById('whole-number-input').innerText = number;
+  }
+}

@@ -51,6 +51,7 @@ body {
   right: -8px;
   position: absolute;
   border: #584434 solid 8px;
+  z-index: 6;
 }
 
 #exercise-container {
@@ -164,6 +165,12 @@ body {
   background-color: #584434;
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+  height: 532.458px;
+}
+
 #thousands {
   flex: 1;
   width: 425px;
@@ -185,6 +192,7 @@ body {
   flex: 1;
   position: relative;
   height: 516px;
+  border: #584434 solid 8px;
 }
 
 #thousands-block {
@@ -201,7 +209,33 @@ body {
 
 #ones-block {
   background-image: url('assets/tlo1.svg');
-  width: 212px;
+}
+
+#building-blocks-container {
+  display: flex;
+}
+
+.building-block {
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#thousand-building-block {
+  width: 441px;
+}
+
+#hundred-building-block {
+  width: 246px;
+}
+
+#ten-building-block {
+  width: 246px;
+}
+
+#one-building-block {
+  width: 246px;
 }
 
 .input {
@@ -210,13 +244,6 @@ body {
   justify-content: center;
   align-items: center;
   border: #584434 solid 8px;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  border: #584434 solid 8px;
-  height: 532.458px;
 }
 
 .input-box {
@@ -231,20 +258,26 @@ body {
   opacity: 0.6;
 }
 
+#whole-number-input {
+  width: 300px;
+  height: 160px;
+  font-size: 110px;
+  align-self: center;
+  font-family: Fira Sans;
+  font-weight: bold;
+  text-align: center;
+  color: #584434;
+  border: none;
+  background-color: rgba(255,255,255, 1);
+}
+
+
 .input-box:focus {
   opacity: 1;
 }
 
 .current-input{
   opacity: 1;
-}
-
-.building-block {
-  height: 150px;
-  border: #584434 solid 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 #thousands-input {
@@ -268,15 +301,35 @@ body {
 }
 
 #make-number {
-  border: blue solid 1px;
   display: flex;
   flex-direction: row;
+  position: absolute;
+  top: 200px;
 }
 
 .make-number {
-  height: 90px;
-  font-size: 80px;
-  border: blue solid 1px;
+  height: 160px;
+  width: 60px;
+  font-size: 110px;
+  font-family: Fira Sans;
+  font-weight: 600;
+  text-align: center;
+}
+
+#make-number-thousands {
+  color: #6bab46;
+}
+
+#make-number-hundreds {
+  color: #af3f3d;
+}
+
+#make-number-tens {
+  color: #3c789c;
+}
+
+#make-number-ones {
+  color: #6bab46;
 }
 
 .thousand-image {
@@ -315,13 +368,6 @@ body {
   color: #3c789c;
 }
 
-#whole-number-input {
-  width: 300px;
-  height: 90px;
-  font-size: 80px;
-  align-self: flex-end;
-}
-
 #feedback {
   font-size: 30px;
   height: 67px;
@@ -333,15 +379,29 @@ body {
   line-height: 67px;
 }
 
-#smile {
+.smile {
+  background-color: #f7d237;
+}
+
+#smileLevel3 {
+  position: absolute;
+  top: 350px;
+}
+
+#sadLevel3 {
+  position: absolute;
+  top: 350px;
+}
+
+.big-dot {
   width: 70px;
   height: 70px;
-  border: solid #584434 5px;
   border-radius: 70px;
-  background-color: #f7d237;
+  border: solid #584434 5px;
   bottom: -5px;
   position: absolute;
   padding: 10px;
+  align-self: center;
 }
 
 .correct-dot {
