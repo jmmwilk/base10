@@ -91,6 +91,7 @@ body {
   display: flex;
   position: relative;
   justify-content: center;
+  height: 250px;
 }
 
 #right-arrow {
@@ -383,6 +384,10 @@ body {
   background-color: #f7d237;
 }
 
+.sad {
+  background-color: #a89a79;
+}
+
 #smileLevel3 {
   position: absolute;
   top: 350px;
@@ -428,5 +433,7 @@ body {
   pointer-events: none
 }
 
-
+.image-transparent {
+  opacity: 0.3;
+}
 
