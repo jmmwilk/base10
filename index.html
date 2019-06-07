@@ -8,24 +8,32 @@
     <title>Quiz</title>
     <link href='style.css' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+    <script type="module" src="index.js"></script>
   </head>
-  <body onload="start()">
+  <body>
     <div id="aplication">
+      <div id="choose-level-container">
+        <img id="pen" src="assets/pen.png"/>
+        <img id="pen-with-star" src="assets/penwithstar.png"/>
+        <img id="hammer" src="assets/hammer.png"/>
+      </div>
       <div id="exercise-container">
         <div id="exercise">
-          <div id="instruction">
-            Wpisz w okienka ile jest tysięcy, setek, dziesiątek i jedności.
+          <div id="instruction-box">
+            <div id="instruction">
+            </div>
             <img id="x" src="images/x.png"/>
           </div>
           <div id="columns-container">
             <div id="thousands" class="column">
               <div id="thousands-block" class="block">
               </div>
+              <img id="star-thousands" src = "assets/star.png" class="star"/>
             </div>
             <div id="hundreds" class="column">
               <div id="hundreds-block" class="block">
               </div>
+              <img id="star-hundreds" src = "assets/star.png" class="star"/>
             </div>
             <div id="tens" class="column">
               <div id="tens-block" class="block">
@@ -73,6 +81,7 @@
         </div>
         <div id="side-bar">
           <div id="calculator-container">
+            <img id="home" src = "assets/home.png"/>
             <div id="calculator">
               <div id="row1" class="row">
                 <div id="1" class="digit">
@@ -134,6 +143,11 @@
           </div>
           <img id="smileLevel3" src = "assets/wesoly.svg" class = "big-dot smile"/>
           <img id="sadLevel3" src = "assets/smutny.svg" class = "big-dot sad"/>
+          <div id="good-answers-count-container">
+            <img id="good-answers-smile" src = "assets/wesoly.svg"/>
+            <div id="good-answers-count">
+            </div>
+          </div>
         </div>
       </div>
     </div>
